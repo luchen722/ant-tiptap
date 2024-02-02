@@ -1,8 +1,8 @@
 {
-  "name": "element-tiptap",
-  "version": "2.2.1",
-  "description": "🌸A modern WYSIWYG rich-text editor using tiptap and Element UI for Vue.js",
-  "author": "leecason",
+  "name": "ant-tiptap",
+  "version": "1.0.0",
+  "description": "🌸A modern WYSIWYG rich-text editor using tiptap and Ant-Design UI for Vue.js",
+  "author": "Joker",
   "scripts": {
     "dev": "vite",
     "demo:preview": "vite preview",
@@ -12,8 +12,8 @@
     "lint:fix": "yarn lint --fix",
     "semantic-release": "semantic-release"
   },
-  "main": "./lib/element-tiptap.umd.js",
-  "module": "./lib/element-tiptap.es.js",
+  "main": "./lib/ant-tiptap.umd.js",
+  "module": "./lib/ant-tiptap.es.js",
   "files": [
     "lib/*"
   ],
@@ -116,9 +116,8 @@
     "vue",
     "tiptap",
     "prosemirror",
-    "element",
-    "element-ui",
-    "element-plus"
+    "ant-design-vue",
+    "ant-design"
   ],
   "license": "MIT",
   "lint-staged": {
