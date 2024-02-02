@@ -18,7 +18,6 @@
           </div>
         </template>
       </link-bubble-menu>
-
       <template v-else-if="activeMenu === 'default'">
         <component
           v-for="(spec, i) in generateCommandButtonComponentSpecs()"
@@ -111,7 +110,7 @@ export default defineComponent({
   },
 
   watch: {
-    'editor.state.selection': function (selection: Selection) {
+    'editor.state.selection': function(selection: Selection) {
       if (this.$_isLinkSelection(selection)) {
         if (!this.isLinkBack) {
           this.setMenuType(MenuType.LINK);
@@ -140,7 +139,6 @@ export default defineComponent({
         if (Array.isArray(menuBtnComponentSpec)) {
           return [...acc, ...menuBtnComponentSpec];
         }
-
         return [...acc, menuBtnComponentSpec];
       }, []);
     },

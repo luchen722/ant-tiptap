@@ -14,7 +14,7 @@ const Heading = TiptapHeading.extend({
         editor: Editor;
         extension: Extension;
         t: (...args: any[]) => string;
-      }) {
+        }) {
         return {
           component: HeadingDropdown,
           componentProps: {

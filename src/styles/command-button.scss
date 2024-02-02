@@ -7,7 +7,6 @@
     border: 1px solid transparent;
     box-sizing: border-box;
     align-items: center;
-    border-radius: 50%;
     color: $primary-text-color;
     cursor: pointer;
     display: flex;
@@ -47,6 +46,8 @@
 
 .el-tiptap-dropdown-menu {
   $menu: &;
+  max-height: 210px;
+  overflow: auto;
 
   #{$menu}__item {
     color: $primary-text-color;
@@ -74,6 +75,9 @@
   }
 
   &__menu {
+    max-height: 210px;
+    overflow: auto;
+
     &__item {
       color: $primary-text-color;
       cursor: pointer;

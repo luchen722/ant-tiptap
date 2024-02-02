@@ -1,52 +1,50 @@
 <template>
-  <el-popover
-    ref="popoverRef"
-    v-model="popoverVisible"
+  <a-popover
+    v-model:open="popoverVisible"
     placement="right"
     trigger="hover"
     popper-class="el-tiptap-popper"
     @after-leave="resetTableGridSize"
   >
-    <div class="table-grid-size-editor">
-      <div class="table-grid-size-editor__body">
-        <div
-          v-for="row in tableGridSize.row"
-          :key="'r' + row"
-          class="table-grid-size-editor__row"
-        >
+    <template #content>
+      <div class="table-grid-size-editor">
+        <div class="table-grid-size-editor__body">
           <div
-            v-for="col in tableGridSize.col"
-            :key="'c' + col"
-            :class="{
-              'table-grid-size-editor__cell--selected':
-                col <= selectedTableGridSize.col &&
-                row <= selectedTableGridSize.row,
-            }"
-            class="table-grid-size-editor__cell"
-            @mouseover="selectTableGridSize(row, col)"
-            @mousedown="confirmCreateTable(row, col)"
+            v-for="row in tableGridSize.row"
+            :key="'r' + row"
+            class="table-grid-size-editor__row"
           >
-            <div class="table-grid-size-editor__cell__inner" />
+            <div
+              v-for="col in tableGridSize.col"
+              :key="'c' + col"
+              :class="{
+                'table-grid-size-editor__cell--selected':
+                  col <= selectedTableGridSize.col &&
+                  row <= selectedTableGridSize.row,
+              }"
+              class="table-grid-size-editor__cell"
+              @mouseover="selectTableGridSize(row, col)"
+              @mousedown="confirmCreateTable(row, col)"
+            >
+              <div class="table-grid-size-editor__cell__inner" />
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="table-grid-size-editor__footer">
-        {{ selectedTableGridSize.row }} X {{ selectedTableGridSize.col }}
-      </div>
-    </div>
-
-    <template #reference>
-      <div>
-        {{ t('editor.extensions.Table.buttons.insert_table') }}
+        <div class="table-grid-size-editor__footer">
+          {{ selectedTableGridSize.row }} X {{ selectedTableGridSize.col }}
+        </div>
       </div>
     </template>
-  </el-popover>
+    <div>
+      {{ t('editor.extensions.Table.buttons.insert_table') }}
+    </div>
+  </a-popover>
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, ref, unref } from 'vue';
-import { ElPopover } from 'element-plus';
+import { defineComponent, inject, ref } from 'vue';
+import { Popover } from 'ant-design-vue';
 
 const INIT_GRID_SIZE = 5;
 const MAX_GRID_SIZE = 10;
@@ -61,22 +59,20 @@ export default defineComponent({
   name: 'CreateTablePopover',
 
   components: {
-    ElPopover,
+    APopover: Popover,
   },
 
   setup(_, { emit }) {
     const t = inject('t');
 
-    const popoverRef = ref();
     const popoverVisible = ref(false);
 
     const confirmCreateTable = (row: number, col: number) => {
-      unref(popoverRef).hide();
-
+      popoverVisible.value = false;
       emit('createTable', { row, col });
     };
 
-    return { t, popoverVisible, popoverRef, confirmCreateTable };
+    return { t, popoverVisible, confirmCreateTable };
   },
 
   data() {

@@ -96,6 +96,7 @@ export default {
               alt: '备用文本描述',
               width: '宽度',
               height: '高度',
+              description: '描述',
             },
           },
         },

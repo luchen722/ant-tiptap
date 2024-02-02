@@ -28,7 +28,7 @@ function printHtml(dom: Element) {
   }
 
   if (frameWindow) {
-    iframe.onload = function () {
+    iframe.onload = function() {
       try {
         setTimeout(() => {
           frameWindow.focus();
@@ -45,7 +45,7 @@ function printHtml(dom: Element) {
         Logger.error(err);
       }
 
-      setTimeout(function () {
+      setTimeout(function() {
         document.body.removeChild(iframe);
       }, 100);
     };

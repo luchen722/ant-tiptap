@@ -1,80 +1,80 @@
 <template>
-  <el-popover
+  <a-popover
+    v-model:open="open"
     :disabled="isCodeViewMode"
     placement="bottom"
     trigger="click"
     popper-class="el-tiptap-popper"
     ref="popoverRef"
   >
-    <div class="color-set">
-      <div v-for="color in colorSet" :key="color" class="color__wrapper">
-        <div
-          :style="{
-            'background-color': color,
-          }"
-          :class="{ 'color--selected': selectedColor === color }"
-          class="color"
-          @mousedown.prevent
-          @click.stop="confirmColor(color)"
-        />
+    <template #content>
+      <div class="color-set">
+        <div v-for="color in colorSet" :key="color" class="color__wrapper">
+          <div
+            :style="{
+              'background-color': color,
+            }"
+            :class="{ 'color--selected': selectedColor === color }"
+            class="color"
+            @mousedown.prevent
+            @click.stop="confirmColor(color)"
+          />
+        </div>
+
+        <div class="color__wrapper">
+          <div
+            class="color color--remove"
+            @mousedown.prevent
+            @click.stop="confirmColor()"
+          />
+        </div>
       </div>
 
-      <div class="color__wrapper">
-        <div
-          class="color color--remove"
-          @mousedown.prevent
-          @click.stop="confirmColor()"
+      <div class="color-hex">
+        <a-input
+          v-model:value="colorText"
+          placeholder="HEX"
+          autofocus="true"
+          maxlength="7"
+          size="small"
+          class="color-hex__input"
         />
+
+        <a-button
+          text
+          type="primary"
+          size="small"
+          class="color-hex__button"
+          @click="confirmColor(colorText)"
+        >
+          OK
+        </a-button>
       </div>
-    </div>
-
-    <div class="color-hex">
-      <el-input
-        v-model="colorText"
-        placeholder="HEX"
-        autofocus="true"
-        maxlength="7"
-        size="small"
-        class="color-hex__input"
-      />
-
-      <el-button
-        text
-        type="primary"
-        size="small"
-        class="color-hex__button"
-        @click="confirmColor(colorText)"
-      >
-        OK
-      </el-button>
-    </div>
-
-    <template #reference>
-      <span>
-        <command-button
-          :enable-tooltip="enableTooltip"
-          :tooltip="t('editor.extensions.TextColor.tooltip')"
-          icon="font-color"
-          :readonly="isCodeViewMode"
-        />
-      </span>
     </template>
-  </el-popover>
+    <span>
+      <command-button
+        :enable-tooltip="enableTooltip"
+        :tooltip="t('editor.extensions.TextColor.tooltip')"
+        icon="font-color"
+        :readonly="isCodeViewMode"
+      />
+    </span>
+  </a-popover>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, inject, ref, unref, watch } from 'vue';
+import { computed, defineComponent, inject, ref, watch } from 'vue';
 import { Editor, getMarkAttributes } from '@tiptap/vue-3';
-import { ElButton, ElPopover, ElInput } from 'element-plus';
+import { Popover, Button, Input } from 'ant-design-vue';
 import CommandButton from './CommandButton.vue';
 
 export default defineComponent({
   name: 'ColorPopover',
 
   components: {
-    ElButton,
-    ElPopover,
-    ElInput,
+    APopover: Popover,
+    AButton: Button,
+    AInput: Input,
     CommandButton,
   },
 
@@ -92,15 +92,14 @@ export default defineComponent({
 
     const popoverRef = ref();
     const colorText = ref('');
-
+    const open = ref(false);
     function confirmColor(color?: string) {
       if (color) {
         props.editor.commands.setColor(color);
       } else {
         props.editor.commands.unsetColor();
       }
-
-      unref(popoverRef).hide();
+      open.value = false;
     }
 
     const selectedColor = computed<string>(() => {
@@ -117,6 +116,7 @@ export default defineComponent({
       isCodeViewMode,
       popoverRef,
       colorText,
+      open,
       selectedColor,
       confirmColor,
     };

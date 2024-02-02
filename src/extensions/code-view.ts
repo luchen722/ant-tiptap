@@ -1,5 +1,4 @@
 import { Extension } from '@tiptap/core';
-import type { Editor } from '@tiptap/core';
 import { extendCodemirror } from '@/utils/code-view';
 import Logger from '@/utils/logger';
 import CodeViewCommandButton from '@/components/MenuCommands/CodeViewCommandButton.vue';
@@ -43,7 +42,7 @@ const CodeView = Extension.create<CodeViewOptions>({
   addOptions() {
     return {
       ...this.parent?.(),
-      button({ editor }: { editor: Editor }) {
+      button() {
         return {
           component: CodeViewCommandButton,
         };

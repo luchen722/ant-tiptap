@@ -1,4 +1,4 @@
-import { Editor, mergeAttributes } from '@tiptap/core';
+import { Editor } from '@tiptap/core';
 import { VueNodeViewRenderer } from '@tiptap/vue-3';
 import TiptapImage from '@tiptap/extension-image';
 import InsertImageCommandButton from '@/components/MenuCommands/Image/InsertImageCommandButton.vue';
@@ -72,9 +72,21 @@ const Image = TiptapImage.extend({
 
           return dp;
         },
+
         renderHTML: (attributes) => {
           return {
-            ['data-display']: attributes.display,
+            'data-display': attributes.display,
+          };
+        },
+      },
+      description: {
+        default: 'default description',
+        parseHTML: (element: any) => {
+          return element.getAttribute('data-description') || null;
+        },
+        renderHTML: (attributes) => {
+          return {
+            'data-description': attributes.description,
           };
         },
       },

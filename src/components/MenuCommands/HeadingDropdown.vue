@@ -1,24 +1,8 @@
 <template>
-  <el-dropdown
-    placement="bottom"
-    trigger="click"
-    popper-class="el-tiptap-dropdown-popper"
-    @command="toggleHeading"
-  >
-    <command-button
-      :enable-tooltip="enableTooltip"
-      :is-active="editor.isActive('heading')"
-      :tooltip="t('editor.extensions.Heading.tooltip')"
-      :disabled="isCodeViewMode"
-      icon="heading"
-    />
-    <template #dropdown>
-      <el-dropdown-menu slot="dropdown" class="el-tiptap-dropdown-menu">
-        <el-dropdown-item
-          v-for="level in [0, ...levels]"
-          :key="level"
-          :command="level"
-        >
+  <a-dropdown :disabled="isCodeViewMode" trigger="click" placement="bottom">
+    <template #overlay>
+      <a-menu @click="(item) => toggleHeading(item.key)">
+        <a-menu-item v-for="level in levels" :key="level">
           <div
             :class="[
               {
@@ -41,16 +25,23 @@
               t('editor.extensions.Heading.buttons.paragraph')
             }}</span>
           </div>
-        </el-dropdown-item>
-      </el-dropdown-menu>
+        </a-menu-item>
+      </a-menu>
     </template>
-  </el-dropdown>
+    <command-button
+      :enable-tooltip="enableTooltip"
+      :is-active="editor.isActive('heading')"
+      :tooltip="t('editor.extensions.Heading.tooltip')"
+      :disabled="isCodeViewMode"
+      icon="heading"
+    />
+  </a-dropdown>
 </template>
 
 <script lang="ts">
 import { defineComponent, inject } from 'vue';
-import { ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus';
 import type { Level } from '@tiptap/extension-heading';
+import { Dropdown, Menu, MenuItem } from 'ant-design-vue';
 import { Editor } from '@tiptap/core';
 import CommandButton from './CommandButton.vue';
 
@@ -58,9 +49,9 @@ export default defineComponent({
   name: 'HeadingDropdown',
 
   components: {
-    ElDropdown,
-    ElDropdownMenu,
-    ElDropdownItem,
+    ADropdown: Dropdown,
+    AMenu: Menu,
+    AMenuItem: MenuItem,
     CommandButton,
   },
 

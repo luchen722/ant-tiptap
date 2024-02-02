@@ -1,49 +1,46 @@
 <template>
-  <el-dropdown placement="bottom" trigger="click" @command="toggleFontSize">
+  <a-dropdown :disabled="isCodeViewMode" trigger="click" placement="bottom">
+    <template #overlay>
+      <a-menu @click="(item) => toggleFontSize(item.key)" class="el-tiptap-dropdown-menu">
+        <a-menu-item :key="defaultSize">
+          <div
+            :class="{
+              'el-tiptap-dropdown-menu__item--active':
+                activeFontSize === defaultSize,
+            }"
+            class="el-tiptap-dropdown-menu__item"
+          >
+            <span data-font-size="default">{{
+              t('editor.extensions.FontSize.default')
+            }}</span>
+          </div>
+        </a-menu-item>
+        <a-menu-item v-for="fontSize in fontSizes" :key="fontSize">
+          <div
+            :class="{
+              'el-tiptap-dropdown-menu__item--active':
+                fontSize === activeFontSize,
+            }"
+            class="el-tiptap-dropdown-menu__item"
+          >
+            <span :data-font-size="fontSize">{{ fontSize }}px</span>
+          </div>
+        </a-menu-item>
+      </a-menu>
+    </template>
     <command-button
       :enable-tooltip="enableTooltip"
       :tooltip="t('editor.extensions.FontSize.tooltip')"
       :readonly="isCodeViewMode"
       icon="font-size"
     />
-
-    <template #dropdown>
-      <el-dropdown-menu class="el-tiptap-dropdown-menu">
-        <!-- default size -->
-        <el-dropdown-item
-          :command="defaultSize"
-          :class="{
-            'el-tiptap-dropdown-menu__item--active':
-              activeFontSize === defaultSize,
-          }"
-          class="el-tiptap-dropdown-menu__item"
-        >
-          <span data-font-size="default">{{
-            t('editor.extensions.FontSize.default')
-          }}</span>
-        </el-dropdown-item>
-
-        <el-dropdown-item
-          v-for="fontSize in fontSizes"
-          :key="fontSize"
-          :command="fontSize"
-          :class="{
-            'el-tiptap-dropdown-menu__item--active':
-              fontSize === activeFontSize,
-          }"
-          class="el-tiptap-dropdown-menu__item"
-        >
-          <span :data-font-size="fontSize">{{ fontSize }}</span>
-        </el-dropdown-item>
-      </el-dropdown-menu>
-    </template>
-  </el-dropdown>
+  </a-dropdown>
 </template>
 
 <script lang="ts">
 import { defineComponent, inject } from 'vue';
 import { Editor, getMarkAttributes } from '@tiptap/vue-3';
-import { ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus';
+import { Dropdown, Menu, MenuItem } from 'ant-design-vue';
 import { DEFAULT_FONT_SIZE } from '@/utils/font-size';
 import CommandButton from './CommandButton.vue';
 
@@ -51,9 +48,9 @@ export default defineComponent({
   name: 'FontSizeDropdown',
 
   components: {
-    ElDropdown,
-    ElDropdownMenu,
-    ElDropdownItem,
+    ADropdown: Dropdown,
+    AMenu: Menu,
+    AMenuItem: MenuItem,
     CommandButton,
   },
 

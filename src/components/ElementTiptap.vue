@@ -62,7 +62,7 @@ import {
   unref,
   watchEffect,
 } from 'vue';
-import { AnyExtension, Editor, Extensions } from '@tiptap/core';
+import { Editor, Extensions } from '@tiptap/core';
 import { EditorContent, useEditor } from '@tiptap/vue-3';
 import TiptapPlaceholder from '@tiptap/extension-placeholder';
 import CharacterCount from '@tiptap/extension-character-count';
@@ -190,14 +190,14 @@ export default defineComponent({
           emptyEditorClass: 'el-tiptap-editor--empty',
           emptyNodeClass: 'el-tiptap-editor__placeholder',
           showOnlyCurrent: false,
-          placeholder: ({ node }) => {
+          placeholder: () => {
             return props.placeholder;
           },
         }),
         props.enableCharCount
           ? CharacterCount.configure({
-              limit: props.charCountMax,
-            })
+            limit: props.charCountMax,
+          })
           : null,
       ])
       .filter(Boolean);
@@ -238,6 +238,7 @@ export default defineComponent({
     });
 
     watchEffect(() => {
+      // eslint-disable-next-line no-unused-expressions
       unref(editor)?.setOptions({
         editorProps: {
           attributes: {

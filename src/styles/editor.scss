@@ -28,7 +28,7 @@
     }
   }
 
-  > #{$root}__content {
+  >#{$root}__content {
     background-color: $white-color;
     border: 1px solid $lighter-border-color;
     border-top: 0;
@@ -59,7 +59,7 @@
   }
 
   &--with-footer {
-    > #{$root}__content {
+    >#{$root}__content {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
       border-bottom: 0;
@@ -115,7 +115,7 @@
     overflow-x: auto;
     text-align: left;
 
-    > * {
+    >* {
       box-sizing: border-box;
     }
 
@@ -154,7 +154,7 @@
       padding-top: 5px;
     }
 
-    li > p {
+    li>p {
       margin: 0;
 
       &:first-child::before {
@@ -170,7 +170,7 @@
       }
     }
 
-    ul li > p {
+    ul li>p {
       &:first-child::before {
         content: '\2022';
         text-align: center;
@@ -180,7 +180,7 @@
     ol {
       counter-reset: el-tiptap-counter;
 
-      li > p:first-child::before {
+      li>p:first-child::before {
         counter-increment: el-tiptap-counter;
       }
     }
@@ -263,7 +263,7 @@
       display: inline-block;
       float: none;
       line-height: 0;
-      margin: 12px 0;
+      margin: 12px 0 24px;
       max-width: 100%;
       user-select: none;
       vertical-align: baseline;
@@ -320,6 +320,16 @@
         &__image {
           cursor: pointer;
           margin: 0;
+
+
+        }
+
+        &__description {
+          position: absolute;
+          bottom: -12px;
+          left: 0;
+          right: 0;
+          text-align: center;
         }
       }
     }
@@ -400,7 +410,7 @@
           padding-left: 10px;
           width: 100%;
 
-          > p {
+          >p {
             font-size: 16px;
 
             &:last-of-type {
@@ -410,7 +420,7 @@
         }
 
         &[data-done='done'] {
-          > .todo-content > p {
+          >.todo-content>p {
             color: $primary-color;
             text-decoration: line-through;
           }
@@ -423,7 +433,10 @@
       margin-bottom: 20px;
     }
 
-    @for $i from 1 through 7 /* max-indent */ {
+    @for $i from 1 through 7
+
+    /* max-indent */
+      {
       $indent-margin-base: 30px;
 
       *[data-indent='#{$i}'] {
@@ -524,6 +537,7 @@
   }
 
   &__with-title-placeholder {
+
     &:nth-child(1)::before,
     &:nth-child(2)::before {
       color: $placeholder-text-color;

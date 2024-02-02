@@ -1,26 +1,29 @@
 <template>
-  <el-tooltip
-    :content="tooltip"
-    :show-after="350"
+  <!-- <a-tooltip
+    :mouseEnterDelay="350"
     :disabled="!enableTooltip || readonly"
-    effect="dark"
     placement="top"
-  >
-    <div :class="commandButtonClass" @mousedown.prevent @click="onClick">
+  > -->
+    <div>
+      <!-- <template #title>
+      {{ tooltip }}
+    </template> -->
+    <div :class="commandButtonClass" :title="tooltip" @mousedown.prevent @click="onClick">
       <v-icon :name="icon" />
     </div>
-  </el-tooltip>
+    </div>
+  <!-- </a-tooltip> -->
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { ElTooltip } from 'element-plus';
+import { Tooltip } from 'ant-design-vue';
 import { noop } from '@/utils/shared';
 import VIcon from '../Icon/Icon.vue';
 
 export default defineComponent({
   components: {
-    ElTooltip,
+    ATooltip: Tooltip,
     VIcon,
   },
   props: {

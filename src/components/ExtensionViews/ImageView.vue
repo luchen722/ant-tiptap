@@ -13,8 +13,8 @@
         :alt="node!.attrs.alt"
         :width="width"
         :height="height"
-        class="image-view__body__image"
         @click="selectImage"
+        class="image-view__body__image"
       />
 
       <div
@@ -50,7 +50,9 @@
           <div class="image-view__body__placeholder" />
         </template>
       </el-popover>
+      <div class="image-view__body__description" v-if="description">{{ description }}</div>
     </div>
+
   </node-view-wrapper>
 </template>
 
@@ -128,6 +130,10 @@ export default defineComponent({
       return this.node!.attrs.height;
     },
 
+    description(): string {
+      return this.node.attrs.description || 'default description';
+    },
+
     display(): ImageDisplay {
       return this.node!.attrs.display;
     },
@@ -165,6 +171,7 @@ export default defineComponent({
   methods: {
     // https://github.com/scrumpy/tiptap/issues/361#issuecomment-540299541
     selectImage() {
+      // eslint-disable-next-line no-unused-expressions
       this.editor?.commands.setNodeSelection(this.getPos!());
     },
 
@@ -224,6 +231,7 @@ export default defineComponent({
       const dx = (e.clientX - x) * (/l/.test(dir) ? -1 : 1);
       const dy = (e.clientY - y) * (/t/.test(dir) ? -1 : 1);
 
+      // eslint-disable-next-line no-unused-expressions
       this.updateAttributes?.({
         width: clamp(w + dx, MIN_SIZE, this.maxSize.width),
         height: Math.max(h + dy, MIN_SIZE),

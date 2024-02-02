@@ -7,6 +7,7 @@
       :enable-tooltip="enableTooltip"
       v-bind="spec.componentProps"
       :readonly="isCodeViewMode"
+      :editor="editor"
       v-on="spec.componentEvents || {}"
     />
   </div>

@@ -1,38 +1,33 @@
 <template>
-  <el-dropdown
-    placement="bottom"
-    trigger="click"
-    @command="(lineHeight) => editor.commands.setLineHeight(lineHeight)"
-  >
+  <a-dropdown :disabled="isCodeViewMode" trigger="click" placement="bottom">
+    <template #overlay>
+      <a-menu @click="(item) => editor.commands.setLineHeight(item.key)">
+        <a-menu-item v-for="lineHeight in lineHeights" :key="lineHeight">
+          <div
+            :class="{
+              'el-tiptap-dropdown-menu__item--active':
+                isLineHeightActive(lineHeight),
+            }"
+            class="el-tiptap-dropdown-menu__item"
+          >
+            <span>{{ lineHeight }}</span>
+          </div>
+        </a-menu-item>
+      </a-menu>
+    </template>
     <command-button
       :enable-tooltip="enableTooltip"
       :tooltip="t('editor.extensions.LineHeight.tooltip')"
       :readonly="isCodeViewMode"
       icon="text-height"
     />
-    <template #dropdown>
-      <el-dropdown-menu slot="dropdown" class="el-tiptap-dropdown-menu">
-        <el-dropdown-item
-          v-for="lineHeight in lineHeights"
-          :key="lineHeight"
-          :command="lineHeight"
-          :class="{
-            'el-tiptap-dropdown-menu__item--active':
-              isLineHeightActive(lineHeight),
-          }"
-          class="el-tiptap-dropdown-menu__item"
-        >
-          <span>{{ lineHeight }}</span>
-        </el-dropdown-item>
-      </el-dropdown-menu>
-    </template>
-  </el-dropdown>
+  </a-dropdown>
 </template>
 
 <script lang="ts">
 import { defineComponent, inject } from 'vue';
 import { Editor } from '@tiptap/vue-3';
-import { ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus';
+import { Dropdown, Menu, MenuItem } from 'ant-design-vue';
 import { isLineHeightActive } from '@/utils/line-height';
 import CommandButton from './CommandButton.vue';
 
@@ -40,9 +35,9 @@ export default defineComponent({
   name: 'LineHeightDropdown',
 
   components: {
-    ElDropdown,
-    ElDropdownMenu,
-    ElDropdownItem,
+    ADropdown: Dropdown,
+    AMenu: Menu,
+    AMenuItem: MenuItem,
     CommandButton,
   },
 

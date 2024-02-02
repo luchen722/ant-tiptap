@@ -1,43 +1,43 @@
 <template>
-  <el-popover
+  <a-popover
+    v-model:open="open"
     placement="top"
     trigger="click"
     popper-class="el-tiptap-popper"
-    ref="popoverRef"
   >
-    <div class="el-tiptap-popper__menu">
-      <div
-        v-for="display in displayCollection"
-        :key="display"
-        :class="{
-          'el-tiptap-popper__menu__item--active': display === currDisplay,
-        }"
-        class="el-tiptap-popper__menu__item"
-        @mousedown="hidePopover"
-        @click="updateAttrs!({ display })"
-      >
-        <span>{{
-          t(`editor.extensions.Image.buttons.display.${display}`)
-        }}</span>
+    <template #content>
+      <div class="el-tiptap-popper__menu">
+        <div
+          v-for="display in displayCollection"
+          :key="display"
+          :class="{
+            'el-tiptap-popper__menu__item--active': display === currDisplay,
+          }"
+          class="el-tiptap-popper__menu__item"
+          @mousedown="hidePopover"
+          @click="updateAttrs!({ display })"
+        >
+          <span>{{
+            t(`editor.extensions.Image.buttons.display.${display}`)
+          }}</span>
+        </div>
       </div>
-    </div>
-
-    <template #reference>
-      <span>
-        <command-button
-          :enable-tooltip="enableTooltip"
-          :tooltip="t('editor.extensions.Image.buttons.display.tooltip')"
-          icon="image-align"
-        />
-      </span>
     </template>
-  </el-popover>
+    <span>
+      <command-button
+        :enable-tooltip="enableTooltip"
+        :tooltip="t('editor.extensions.Image.buttons.display.tooltip')"
+        icon="image-align"
+      />
+    </span>
+  </a-popover>
 </template>
 
 <script lang="ts">
-import { defineComponent, inject } from 'vue';
+import { defineComponent, inject, ref } from 'vue';
 import { nodeViewProps } from '@tiptap/vue-3';
 import { ElPopover } from 'element-plus';
+import { Popover } from 'ant-design-vue';
 import { ImageDisplay } from '@/utils/image';
 import CommandButton from '../CommandButton.vue';
 
@@ -46,11 +46,12 @@ export default defineComponent({
 
   components: {
     ElPopover,
+    APopover: Popover,
     CommandButton,
   },
   props: {
-    node: nodeViewProps['node'],
-    updateAttrs: nodeViewProps['updateAttributes'],
+    node: nodeViewProps.node,
+    updateAttrs: nodeViewProps.updateAttributes,
   },
 
   data() {
@@ -67,8 +68,8 @@ export default defineComponent({
   setup() {
     const t = inject('t');
     const enableTooltip = inject('enableTooltip', true);
-
-    return { t, enableTooltip };
+    const open = ref(false);
+    return { t, enableTooltip, open };
   },
 
   computed: {
@@ -79,6 +80,7 @@ export default defineComponent({
 
   methods: {
     hidePopover() {
+      // eslint-disable-next-line no-unused-expressions
       this.$refs.popoverRef?.hide();
     },
   },

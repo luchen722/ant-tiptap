@@ -19,8 +19,9 @@
         }
       }
     ],
-    "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "single"],
+    "vue/valid-v-model": "off",
+    "linebreak-style": ["off", "unix"],
+    "quotes": ["off", "single"],
     "no-multi-spaces": [
       "error",
       {

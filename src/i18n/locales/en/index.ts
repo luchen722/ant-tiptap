@@ -96,6 +96,7 @@ export default {
               alt: 'Alternative Text',
               width: 'Width',
               height: 'Height',
+              description: 'Description',
             },
           },
         },
