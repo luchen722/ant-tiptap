@@ -1,15 +1,14 @@
 import { Plugin } from 'vue';
-import ElementTiptap from '@/components/ElementTiptap.vue';
+import ATiptap from '@/components/ATiptap.vue';
 
-const ElementTiptapPlugin: Plugin = {
+const ATiptapPlugin: Plugin = {
   install(app) {
-    app.component('element-tiptap', ElementTiptap);
-    app.component('el-tiptap', ElementTiptap);
+    app.component('a-tiptap', ATiptap);
   },
 };
 
 export * from '@/extensions';
 
-export { ElementTiptapPlugin, ElementTiptap };
+export { ATiptapPlugin, ATiptap };
 
-export default ElementTiptapPlugin;
+export default ATiptapPlugin;

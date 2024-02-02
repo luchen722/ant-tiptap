@@ -64,24 +64,24 @@ export default ({ mode }) => {
         minify: 'esbuild',
         lib: {
           entry: path.resolve(srcDir, 'index.ts'),
-          name: 'ElementTiptap',
-          fileName: 'element-tiptap',
+          name: 'AntTiptap',
+          fileName: 'ant-tiptap',
         },
         // https://rollupjs.org/guide/en/#big-list-of-options
         rollupOptions: {
           // 确保外部化处理那些你不想打包进库的依赖
           external: [
             'vue',
-            'element-plus/lib/components/button',
-            'element-plus/lib/components/checkbox',
-            'element-plus/lib/components/tooltip',
-            'element-plus/lib/components/dialog',
-            'element-plus/lib/components/popover',
-            'element-plus/lib/components/upload',
-            'element-plus/lib/components/message-box',
-            'element-plus/lib/components/dropdown',
-            'element-plus/lib/components/dropdown-menu',
-            'element-plus/lib/components/dropdown-item',
+            // 'element-plus/lib/components/button',
+            // 'element-plus/lib/components/checkbox',
+            // 'element-plus/lib/components/tooltip',
+            // 'element-plus/lib/components/dialog',
+            // 'element-plus/lib/components/popover',
+            // 'element-plus/lib/components/upload',
+            // 'element-plus/lib/components/message-box',
+            // 'element-plus/lib/components/dropdown',
+            // 'element-plus/lib/components/dropdown-menu',
+            // 'element-plus/lib/components/dropdown-item',
           ],
           output: {
             exports: 'named',
@@ -90,18 +90,18 @@ export default ({ mode }) => {
             // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
             globals: {
               vue: 'vue',
-              'element-plus/lib/components/button': 'ELEMENT.Button',
-              'element-plus/lib/components/checkbox': 'ELEMENT.Checkbox',
-              'element-plus/lib/components/tooltip': 'ELEMENT.Tooltip',
-              'element-plus/lib/components/dialog': 'ELEMENT.Dialog',
-              'element-plus/lib/components/popover': 'ELEMENT.Popover',
-              'element-plus/lib/components/upload': 'ELEMENT.Upload',
-              'element-plus/lib/components/message-box': 'ELEMENT.MessageBox',
-              'element-plus/lib/components/dropdown': 'ELEMENT.Dropdown',
-              'element-plus/lib/components/dropdown-menu':
-                  'ELEMENT.DropdownMenu',
-              'element-plus/lib/components/dropdown-item':
-                  'ELEMENT.DropdownItem',
+              // 'element-plus/lib/components/button': 'ELEMENT.Button',
+              // 'element-plus/lib/components/checkbox': 'ELEMENT.Checkbox',
+              // 'element-plus/lib/components/tooltip': 'ELEMENT.Tooltip',
+              // 'element-plus/lib/components/dialog': 'ELEMENT.Dialog',
+              // 'element-plus/lib/components/popover': 'ELEMENT.Popover',
+              // 'element-plus/lib/components/upload': 'ELEMENT.Upload',
+              // 'element-plus/lib/components/message-box': 'ELEMENT.MessageBox',
+              // 'element-plus/lib/components/dropdown': 'ELEMENT.Dropdown',
+              // 'element-plus/lib/components/dropdown-menu':
+              //     'ELEMENT.DropdownMenu',
+              // 'element-plus/lib/components/dropdown-item':
+              //     'ELEMENT.DropdownItem',
             },
           },
           plugins: [
