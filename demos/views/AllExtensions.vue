@@ -1,13 +1,13 @@
 <template>
   <div class="el-tiptap-editor__wrapper">
-    <el-tiptap :extensions="textExtensions" content="Text Extensions" />
+    <a-tiptap :extensions="textExtensions" content="Text Extensions" />
 
-    <el-tiptap
+    <a-tiptap
       :extensions="paragraphExtensions"
       content="Paragraph Extensions"
     />
 
-    <el-tiptap
+    <a-tiptap
       :extensions="richAndToolsExtensions"
       content="Rich And Tools Extensions"
     />

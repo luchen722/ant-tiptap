@@ -1,7 +1,6 @@
 import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import ElementPlus from 'unplugin-element-plus/vite';
 import svgLoader from 'vite-svg-loader';
 import copy from 'rollup-plugin-copy';
 import dts from 'vite-plugin-dts';
@@ -28,7 +27,6 @@ export default ({ mode }) => {
           include: ['src'],
           insertTypesEntry: true,
         }),
-      ElementPlus(),
       svgLoader(),
     ],
     css: {

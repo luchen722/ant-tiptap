@@ -1,6 +1,6 @@
 <template>
   <div class="el-tiptap-editor__wrapper">
-    <el-tiptap :extensions="extensions" :content="content" />
+    <a-tiptap :extensions="extensions" :content="content" />
   </div>
 </template>
 

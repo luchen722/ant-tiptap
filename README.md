@@ -1,56 +1,19 @@
-<p align="center"><a href="https://github.com/Leecason/element-tiptap" target="_blank" rel="noopener noreferrer"><img src="/demos/assets/logo_for_github.png?raw=true" alt="ElTiptap logo"></a></p>
-
-<p align="center">
-  <img alt="npm" src="https://img.shields.io/npm/v/element-tiptap">
-  <img alt="GitHub Release Date" src="https://img.shields.io/github/release-date/Leecason/element-tiptap">
-  <img alt="npm peer dependency version" src="https://img.shields.io/badge/vue-%5E3.0.0-vue">
-  <img alt="semantic-release" src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg">
-  <img alt="GitHub" src="https://img.shields.io/github/license/Leecason/element-tiptap">
-</p>
-
-<h3 align="center">Element Tiptap Editor</h3>
-
-A WYSIWYG rich-text editor using [tiptap2](https://github.com/ueberdosis/tiptap) and [Element Plus](https://github.com/element-plus/element-plus) for Vue3
-
-that's easy to use, friendly to developers, fully extensible and clean in design.
-
-## 🧊 Legacy
-
-[Element Tiptap 1.0](https://github.com/Leecason/element-tiptap/tree/master)
-
 ## 📔 Languages
 
 English | [简体中文](./README_ZH.md)
-
-## 🎄 Demo
-
-👉[https://leecason.github.io/element-tiptap](https://leecason.github.io/element-tiptap)
-
-👾[Code Sandbox](https://codesandbox.io/s/element-tiptap-bwlnj)
-
-## ✨ Features
-
-- 🎨Use [element-plus](https://github.com/element-plus/element-plus) components
-- 💅Many out of box [extensions](https://github.com/Leecason/element-tiptap#extensions) (welcome to submit an issue for feature request👏)
-- 🔖Markdown support
-- 📘TypeScript support
-- 🌐I18n support(`en`, `zh`, `pl`, `ru`, `de`, `ko`, `es`, `zh_tw`, `fr`, `pt_br`, `nl`, `he`). welcome to contribute more languages
-- 🎈Events you might use: `create`, `transaction`, `focus`, `blur`, `destroy`
-- 🍀Fully extensible, you can customize editor extension and its menu button view
-- 💻Also can control the behavior of the editor directly, customize the editor for yourself.
 
 ## 📦 Installation
 
 ### NPM
 
 ```shell
-yarn add element-tiptap
+yarn add ant-tiptap
 ```
 
 Or
 
 ```shell
-npm install --save element-tiptap
+npm install --save ant-tiptap
 ```
 
 #### Install plugin
@@ -58,18 +21,17 @@ npm install --save element-tiptap
 ```js
 import { createApp } from 'vue';
 import App from './App.vue';
-import ElementPlus from 'element-plus';
-import ElementTiptapPlugin from 'element-tiptap';
-// import ElementTiptap's styles
-import 'element-tiptap/lib/style.css';
+import Antd from 'ant-design-vue';
+import 'ant-design-vue/dist/antd.css';
+import AntTiptapPlugin from 'ant-tiptap';
 
 const app = createApp(App);
 
-// use ElementPlus's plugin
-app.use(ElementPlus);
+// use Antd's plugin
+app.use(Antd);
 // use this package's plugin
-app.use(ElementTiptapPlugin);
-// Now you register `'el-tiptap'` component globally.
+app.use(AntTiptapPlugin);
+// Now you register `'a-tiptap'` component globally.
 
 app.mount('#app');
 ```
@@ -80,11 +42,11 @@ _Or_
 
 ```vue
 <template>
-  <el-tiptap ...></el-tiptap>
+  <a-tiptap ...></a-tiptap>
 </template>
 
 <script setup>
-import { ElementTiptap } from 'element-tiptap';
+import { AntTiptap } from 'ant-tiptap';
 </script>
 ```
 
@@ -92,7 +54,7 @@ import { ElementTiptap } from 'element-tiptap';
 
 ```vue
 <template>
-  <el-tiptap v-model:content="content" :extensions="extensions" />
+  <a-tiptap v-model:content="content" :extensions="extensions" />
 </template>
 
 <script setup>
@@ -208,7 +170,7 @@ Editor's content
 or Use `'v-model'`
 
 ```html
-<el-tiptap v-model:content="content" />
+<a-tiptap v-model:content="content" />
 ```
 
 ### output
@@ -220,7 +182,7 @@ Default: `'html'`
 Output can be defined to `'html'` or `'json'`.
 
 ```html
-<el-tiptap output="json" />
+<a-tiptap output="json" />
 ```
 
 further reading: [prosemirror data structure](https://prosemirror.net/docs/guide/#doc)
@@ -232,7 +194,7 @@ Type: `boolean`
 Default: `false`
 
 ```html
-<el-tiptap readonly />
+<a-tiptap readonly />
 ```
 
 when `readonly` is `true`, editor is not editable.
@@ -244,7 +206,7 @@ Type: `boolean`
 Default: `false`
 
 ```html
-<el-tiptap spellcheck> </el-tiptap>
+<a-tiptap spellcheck> </a-tiptap>
 ```
 
 Whether the content is spellcheck enabled.
@@ -256,7 +218,7 @@ Type: `string | number`
 A string value with unit or a simple value (the default unit is **`px`**)：
 
 ```html
-<el-tiptap :width="700" height="100%"> </el-tiptap>
+<a-tiptap :width="700" height="100%"> </a-tiptap>
 ```
 
 The above example will be converted to:
@@ -288,12 +250,12 @@ Specifies the editor i18n language.
 
 ```js
 <template>
-  <el-tiptap :locale="en"></el-tiptap>
+  <a-tiptap :locale="en"></a-tiptap>
 </template>
 
 <script setup>
-import { ElementTiptap } from 'element-tiptap';
-import en from 'element-tiptap/lib/locales/en';
+import { AntTiptap } from 'ant-tiptap';
+import en from 'ant-tiptap/lib/locales/en';
 </script>
 ```
 
@@ -320,7 +282,7 @@ Welcome contribution.
 
 ```vue
 <template>
-  <el-tiptap @onCreate="onCreate" />
+  <a-tiptap @onCreate="onCreate" />
 </template>
 
 <script setup>
@@ -349,12 +311,3 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 ## 📄 License
 
 [MIT](https://github.com/Leecason/element-tiptap/blob/master/LICENSE)
-
-## 💝 Buy Me A Coffee
-
-I am so happy that so many people like this project, and I will do better with your support.
-
-<p>
-  <img alt="reward" src="/public/wechat_reward_qrcode.jpg?raw=true" width="300">
-  <a href="https://www.buymeacoffee.com/leecason" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-blue.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
-</p>

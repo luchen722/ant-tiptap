@@ -1,6 +1,6 @@
 {
   "name": "ant-tiptap",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "🌸A modern WYSIWYG rich-text editor using tiptap and Ant-Design UI for Vue.js",
   "author": "Joker",
   "scripts": {
@@ -12,8 +12,7 @@
     "lint:fix": "yarn lint --fix",
     "semantic-release": "semantic-release"
   },
-  "main": "./lib/ant-tiptap.umd.js",
-  "module": "./lib/ant-tiptap.es.js",
+  "main": "./lib/ant-tiptap.es.js",
   "files": [
     "lib/*"
   ],
@@ -55,7 +54,7 @@
     "@tiptap/extension-underline": "^2.0.0-beta.22",
     "@tiptap/pm": "^2.1.12",
     "@tiptap/vue-3": "^2.1.12",
-    "ant-design-vue": "^4.1.2",
+    "codemirror": "^5.54.0",
     "core-js": "^3.4.3"
   },
   "devDependencies": {
@@ -73,8 +72,8 @@
     "@vue/eslint-config-typescript": "^5.0.1",
     "autoprefixer": "^10.4.7",
     "babel-eslint": "^10.0.3",
-    "codemirror": "^5.54.0",
     "element-plus": "^2.2.8",
+    "ant-design-vue": "^4.1.2",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-node": "^11.0.0",
@@ -98,7 +97,7 @@
     "yorkie": "^2.0.0"
   },
   "peerDependencies": {
-    "element-plus": ">= 2.0.0",
+    "ant-design-vue": ">= 4.0.0",
     "vue": ">= 3.0.0"
   },
   "resolutions": {},
@@ -121,10 +120,7 @@
   ],
   "license": "MIT",
   "lint-staged": {
-    "*.{js,vue}": [
-      "yarn lint",
-      "git add"
-    ]
+    "*.{js,vue}": []
   },
   "repository": {
     "type": "git",

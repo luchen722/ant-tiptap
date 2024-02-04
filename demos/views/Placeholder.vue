@@ -1,6 +1,6 @@
 <template>
   <div class="el-tiptap-editor__wrapper">
-    <el-tiptap
+    <Alert></Alert>-tiptap
       :extensions="extensions"
       placeholder="Do you like this editor ? 👏"
     />

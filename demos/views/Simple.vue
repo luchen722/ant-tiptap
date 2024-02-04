@@ -1,6 +1,6 @@
 <template>
   <div class="el-tiptap-editor__wrapper">
-    <el-tiptap
+    <a-tiptap
       :extensions="extensions"
       v-model:content="content"
       placeholder="Write something ..."

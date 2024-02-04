@@ -1,7 +1,7 @@
 <template>
   <div class="editor-output__container">
     <div class="editor">
-      <el-tiptap
+      <a-tiptap
         :extensions="extensions"
         :v-model:content="content"
         @onUpdate="onUpdate"

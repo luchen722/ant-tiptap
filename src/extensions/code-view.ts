@@ -19,13 +19,6 @@ export interface CodeViewOptions {
 const CodeView = Extension.create<CodeViewOptions>({
   name: 'codeView',
 
-  defaultOptions: {
-    codemirror: null,
-    codemirrorOptions: {
-      ...DEFAULT_CODEMIRROR_OPTIONS,
-    },
-  },
-
   onBeforeCreate() {
     if (!this.options.codemirror) {
       Logger.warn('"CodeView" extension requires the CodeMirror library.');
@@ -42,6 +35,10 @@ const CodeView = Extension.create<CodeViewOptions>({
   addOptions() {
     return {
       ...this.parent?.(),
+      codemirror: null,
+      codemirrorOptions: {
+        ...DEFAULT_CODEMIRROR_OPTIONS,
+      },
       button() {
         return {
           component: CodeViewCommandButton,
