@@ -34,22 +34,21 @@
       <!-- when image is break text or float
       bubble menu's position is miscalculated
       use el-popover instead bubble menu -->
-      <el-popover
-        :visible="selected"
-        :show-arrow="false"
+      <a-popover
+        :open="selected"
         placement="top"
-        popper-class="el-tiptap-image-popper"
+        overlayClassName="el-tiptap-image-popper"
+        :getPopupContainer="(triggerNode) => triggerNode.parentNode"
       >
-        <image-bubble-menu
-          :node="node"
-          :editor="editor"
-          :update-attrs="updateAttributes"
-        />
-
-        <template #reference>
-          <div class="image-view__body__placeholder" />
+        <template #content>
+          <image-bubble-menu
+            :node="node"
+            :editor="editor"
+            :update-attrs="updateAttributes"
+          />
         </template>
-      </el-popover>
+        <div class="image-view__body__placeholder" />
+      </a-popover>
       <div class="image-view__body__description" v-if="description">{{ description }}</div>
     </div>
 
@@ -59,7 +58,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3';
-import { ElPopover } from 'element-plus';
+import { Popover } from 'ant-design-vue';
 import { ResizeObserver } from '@juggle/resize-observer';
 import { resolveImg, ImageDisplay } from '@/utils/image';
 import { clamp } from '@/utils/shared';
@@ -79,7 +78,7 @@ export default defineComponent({
   name: 'ImageView',
 
   components: {
-    ElPopover,
+    APopover: Popover,
     NodeViewWrapper,
     ImageBubbleMenu,
   },
@@ -131,7 +130,7 @@ export default defineComponent({
     },
 
     description(): string {
-      return this.node.attrs.description || 'default description';
+      return this.node!.attrs.description;
     },
 
     display(): ImageDisplay {

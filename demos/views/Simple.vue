@@ -2,6 +2,7 @@
   <div class="el-tiptap-editor__wrapper">
     <a-tiptap
       :extensions="extensions"
+      :locale="zh"
       v-model:content="content"
       placeholder="Write something ..."
     />
@@ -33,8 +34,9 @@ import {
   CodeView,
   Fullscreen,
   History,
+  Table,
 } from 'element-tiptap';
-
+import zh from '@/i18n/locales/zh';
 import codemirror from 'codemirror';
 import 'codemirror/lib/codemirror.css'; // import base style
 import 'codemirror/mode/xml/xml.js'; // language
@@ -50,6 +52,7 @@ const extensions = [
   Underline.configure({ bubble: true }),
   Italic.configure({ bubble: true }),
   Strike.configure({ bubble: true }),
+  Table,
   Code,
   Link.configure({ bubble: true }),
   Image,

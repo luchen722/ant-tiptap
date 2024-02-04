@@ -6,7 +6,7 @@
       data-drag-handle
     >
       <span contenteditable="false">
-        <el-checkbox v-model="done" />
+        <a-checkbox v-model:checked="done" />
       </span>
 
       <node-view-content class="todo-content" />
@@ -17,7 +17,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { NodeViewWrapper, nodeViewProps, NodeViewContent } from '@tiptap/vue-3';
-import { ElCheckbox } from 'element-plus';
+import { Checkbox } from 'ant-design-vue';
 
 export default defineComponent({
   name: 'TaskItemView',
@@ -25,7 +25,7 @@ export default defineComponent({
   components: {
     NodeViewWrapper,
     NodeViewContent,
-    ElCheckbox,
+    ACheckbox: Checkbox,
   },
 
   props: nodeViewProps,
