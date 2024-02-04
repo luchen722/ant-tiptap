@@ -6,6 +6,7 @@ import { EditorView } from '@tiptap/pm/view';
 import AddLinkCommandButton from '@/components/MenuCommands/Link/AddLinkCommandButton.vue';
 
 const Link = TiptapLink.extend({
+  inclusive: false,
   addOptions() {
     return {
       ...this.parent?.(),
