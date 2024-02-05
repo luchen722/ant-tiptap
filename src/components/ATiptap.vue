@@ -63,15 +63,17 @@ import {
   watchEffect,
 } from 'vue';
 import { Editor, Extensions } from '@tiptap/core';
-import { EditorContent, useEditor } from '@tiptap/vue-3';
+import { AnyExtension, EditorContent, useEditor } from '@tiptap/vue-3';
 import TiptapPlaceholder from '@tiptap/extension-placeholder';
 import CharacterCount from '@tiptap/extension-character-count';
 import { Trans } from '@/i18n';
-import { useCodeView, useCharacterCount, useEditorStyle } from '@/hooks';
+import { useCodeView, useCharacterCount, useEditorStyle, useModel } from '@/hooks';
 
 import MenuBar from './MenuBar/index.vue';
 import MenuBubble from './MenuBubble/index.vue';
-
+import { handlePaste } from '@/utils/paste';
+import { Slice } from '@tiptap/pm/model';
+import { EditorView } from '@tiptap/pm/view';
 interface Props {
   extensions: Extensions;
   content?: string;
@@ -182,7 +184,14 @@ export default defineComponent({
       default: undefined,
     },
   },
-
+  watch: {
+    locale: {
+      handler(locale: any) {
+        useModel.emit('locale', locale);
+      },
+      immediate: true,
+    }
+  },
   setup(props, { emit }) {
     const extensions = props.extensions
       .concat([
@@ -217,10 +226,11 @@ export default defineComponent({
 
     const editor = useEditor({
       content: props.content,
-      extensions,
+      extensions: extensions as AnyExtension[],
       editable: !props.readonly,
       onCreate: (options) => {
         emit('onCreate', options);
+        // editor.value!.view.dom.addEventListener('paste', (event) => handlePaste(editor.value, event));
       },
       onTransaction: (options) => {
         emit('onTransaction', options);
@@ -235,6 +245,18 @@ export default defineComponent({
         emit('onDestroy', options);
       },
       onUpdate,
+      editorProps: {
+        // transformPastedHTML: (html: string, view: EditorView) => {
+        //   return html;
+        // },
+        // transformPasted(slice: Slice, view: EditorView) {
+        //   // console.log(slice, view);
+        //   return slice;
+        // },
+        handlePaste(this, view, event) {
+          handlePaste(editor.value, event);
+        },
+      }
     });
 
     watchEffect(() => {

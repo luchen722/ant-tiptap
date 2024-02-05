@@ -2,7 +2,7 @@ export { default as Text } from '@tiptap/extension-text';
 
 // nodes
 export { default as Document } from './document';
-export { default as Paragraph } from '@tiptap/extension-paragraph';
+export { default as Paragraph } from './paragraph';
 export { default as Heading } from './heading';
 export { default as Blockquote } from './blockquote';
 export { default as CodeBlock } from './code-block';
@@ -31,6 +31,7 @@ export { default as HorizontalRule } from './horizontal-rule';
 export { default as History } from './history';
 export { default as TextAlign } from './text-align';
 export { default as Indent } from './indent';
+export { default as TextIndent } from './text-indent';
 export { default as LineHeight } from './line-height';
 export { default as FormatClear } from './format-clear';
 export { default as Fullscreen } from './fullscreen';

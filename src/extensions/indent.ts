@@ -75,7 +75,7 @@ const Indent = Extension.create<IndentOptions>({
                 return {};
               }
 
-              return { 'data-indent': attributes.indent };
+              return { 'data-indent': attributes.indent, style: `padding-left: ${attributes.indent}em` };
             },
           },
         },
@@ -98,12 +98,6 @@ const Indent = Extension.create<IndentOptions>({
     };
   },
 
-  addKeyboardShortcuts() {
-    return {
-      Tab: () => this.editor.commands.indent(),
-      'Shift-Tab': () => this.editor.commands.outdent(),
-    };
-  },
 });
 
 export default Indent;
