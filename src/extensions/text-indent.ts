@@ -1,13 +1,6 @@
 import { Extension } from '@tiptap/core';
 import type { Editor } from '@tiptap/core';
 import CommandButton from '@/components/MenuCommands/CommandButton.vue';
-import { createIndentCommand, IndentProps } from '@/utils/indent';
-import { TextIndentProps } from '@/utils/text-indent';
-export interface IndentOptions {
-  types: string[];
-  minIndent: number;
-  maxIndent: number;
-}
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -23,7 +16,7 @@ declare module '@tiptap/core' {
     };
   }
 }
-
+const IS_NUMBER_VALUE_REGEXP = /^\d+(.\d+)?$/;
 const TextIndent = Extension.create({
   name: 'TextIndent',
 
@@ -55,8 +48,10 @@ const TextIndent = Extension.create({
           textIndent: {
             default: 0,
             parseHTML: (element) => {
-              const identAttr = element.getAttribute('data-text-indent');
-              return (identAttr ? parseInt(identAttr, 10) : 0) || 0;
+              const identAttr = element.getAttribute('data-text-indent') || element.style.textIndent;
+              const textIndent = (IS_NUMBER_VALUE_REGEXP.test(identAttr) ? parseInt(identAttr, 10) : identAttr) || 0;
+
+              return textIndent;
             },
             renderHTML: (attributes) => {
               if (!attributes.textIndent) {
@@ -66,7 +61,7 @@ const TextIndent = Extension.create({
               if (textIndent < 0) {
                 textIndent = 0;
               }
-              return { 'data-text-indent': textIndent, style: `text-indent: ${textIndent * 2}em` };
+              return { 'data-text-indent': textIndent, style: IS_NUMBER_VALUE_REGEXP.test(textIndent) ? `text-indent: ${textIndent * 2}em` : `text-indent: ${textIndent}` };
             },
           },
         },
