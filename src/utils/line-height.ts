@@ -54,6 +54,16 @@ export function transformLineHeightToCSS(value: string | number): string {
   if (NUMBER_VALUE_PATTERN.test(strValue)) {
     const numValue = parseFloat(strValue);
     strValue = String(Math.round(numValue * 100)) + '%';
+  } else {
+    // 取出非数字单位
+    const match = strValue.match(/(\d+\.?\d*)([^\d]*)$/);
+    if (match) {
+      const num = match[1] as unknown as number;
+      const unit = match[2];
+
+      if (unit) return num + unit;
+      strValue = num * 100 + '%';
+    }
   }
 
   return parseFloat(strValue) * LINE_HEIGHT_100 + '%';
@@ -69,6 +79,16 @@ export function transformCSStoLineHeight(value: string): string {
     const numValue = parseFloat(value);
     strValue = String(Math.round(numValue * 100)) + '%';
     if (strValue === DEFAULT_LINE_HEIGHT) return '';
+  } else {
+    // 取出非数字单位
+    const match = value.match(/(\d+\.?\d*)([^\d]*)$/);
+    if (match) {
+      const num = match[1] as unknown as number;
+      const unit = match[2];
+
+      if (unit) return num + unit;
+      strValue = num * 100 + '%';
+    }
   }
 
   return parseFloat(strValue) / LINE_HEIGHT_100 + '%';

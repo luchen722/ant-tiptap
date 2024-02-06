@@ -57,6 +57,7 @@ const LineHeight = Extension.create<LineHeightOptions>({
               const cssLineHeight = transformLineHeightToCSS(
                 attributes.lineHeight
               );
+              console.log(cssLineHeight);
 
               return {
                 style: `line-height: ${cssLineHeight};`,
