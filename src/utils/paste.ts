@@ -1,5 +1,4 @@
 import { Editor } from "@tiptap/vue-3";
-import { Modal } from 'ant-design-vue';
 import { Trans } from "@/i18n";
 import { useModel } from "@/hooks";
 
@@ -55,8 +54,10 @@ export function extractImageDataFromRtf(rtfData: any) {
   return result;
 }
 // 将图片转成base64
-export function replaceImagesFileSourceWithInlineRepresentation(imageElements: string | any[], imagesHexSources: string | any[]) {
+export function replaceImagesFileSourceWithInlineRepresentation(imageElements: string[], imagesHexSources: string | any[]) {
   const srcs = [];
+  console.log(imagesHexSources);
+
   // Assume there is an equal amount of image elements and images HEX sources so they can be matched accordingly based on existing order.
   if (imageElements.length === imagesHexSources.length) {
     for (let i = 0; i < imageElements.length; i++) {
@@ -100,13 +101,13 @@ export function base64ImgtoFile(dataurl: string, filename = 'file'): File | unde
  * @param base64
  * @return Promise
  */
-export const getLocalTemplateUrl = (base64: any) => {
+export const getLocalTemplateUrl = (base64: any): Promise<string> => {
   return new Promise((resolve) => {
     const file = base64ImgtoFile(base64);
     if (file) {
       resolve(URL.createObjectURL(file));
     } else {
-      resolve(null);
+      resolve('');
     }
   });
 };
@@ -115,41 +116,45 @@ export const handlePaste = async(editor: Editor, event: ClipboardEvent): Promise
   event.preventDefault();
   const clipData = event.clipboardData;
   if (!clipData) return false;
-  const result = true;
+  const uploadRequest = editor.extensionManager.extensions.find(ext => ext.name === 'image')?.options?.uploadRequest;
+  let content = editor.getHTML();
+  const images = Array.from(content.matchAll(/<img[^>]*src="((file:\/\/\/)[^"]*)"[^>]*>/g), match => match[1]);
+  const result = false;
   const { files } = clipData;
+
   if (files.length > 0) {
     // 获取文件
     for (const file of files) {
+      console.log(file);
+
       try {
         // 图片
         if (file.type.startsWith('image/')) {
           // 创建临时地址
           const localUrl = await getLocalTemplateUrl(await getBase64(file));
-          console.log(localUrl);
-
           // 上传图片
-          // if (props.handle_image_url) {
-          //   const networkUrl = await props.handle_image_url(file);
-          //   if (networkUrl) {
-          //     URL.revokeObjectURL(localUrl); // 释放临时地址
-          //     editor.value.commands.setImage({ src: networkUrl });
-          //   }
-          // } else {
-          //   editor.value.commands.setImage({ src: localUrl });
-          // }
+          if (uploadRequest) {
+            const networkUrl = await uploadRequest(file);
+            if (networkUrl) {
+              URL.revokeObjectURL(localUrl); // 释放临时地址
+              editor.commands.setImage({ src: networkUrl });
+            }
+          } else {
+            editor.commands.setImage({ src: localUrl });
+          }
         } else if (file.type.startsWith('video/')) {
           // 创建临时地址
-          const localUrl = URL.createObjectURL(file);
-          console.log(localUrl);
+          // const localUrl = URL.createObjectURL(file);
+          // console.log(localUrl);
           // const { width, height } = await getVideoDimensions(localUrl)
           // 上传视频
           // if (props.handle_video_url) {
           //   const networkUrl = await props.handle_video_url(file);
-          //   const content = editor.value.getHTML();
+          //   const content = editor.getHTML();
           //   URL.revokeObjectURL(localUrl); // 释放临时地址
           //   content.replace(localUrl, networkUrl);
           // } else {
-          //   editor.value.commands.setVideo({ src: localUrl, width: '100%', height: '100%' });
+          // editor.commands.setVideo({ src: localUrl, width: '100%', height: '100%' });
           // }
         }
       } catch (e) {
@@ -159,25 +164,28 @@ export const handlePaste = async(editor: Editor, event: ClipboardEvent): Promise
   } else {
     const rtf = clipData!.getData('text/rtf');
     if (rtf) {
-      let content = editor.getHTML();
-      const images = Array.from(content.matchAll(/<img[^>]*src="((file:\/\/\/)*[^"]*)"[^>]*>/g), match => match[1]);
-      const base64List = replaceImagesFileSourceWithInlineRepresentation(images, extractImageDataFromRtf(rtf));
-      let localUrlList = [];
-      // if (props.handle_image_url) {
-      //   const FileList = base64List.map(base64 => base64ImgtoFile(base64));
-      //   const PromiseList = FileList.map(file => props.handle_image_url(file));
-      //   localUrlList = await Promise.all(PromiseList);
-      // } else {
-      localUrlList = base64List.map(async base64 => {
-        return await getLocalTemplateUrl(base64);
-      });
-      // }
-      for (const image of images) {
-        const index = images.indexOf(image);
-        const url = await localUrlList[index];
-        content = content.replace(image, url);
+      if (images.length > 0) {
+        const base64List = replaceImagesFileSourceWithInlineRepresentation([...images], extractImageDataFromRtf(rtf));
+
+        let localUrlList = [];
+
+        if (uploadRequest) {
+          const FileList = base64List.map(base64 => base64ImgtoFile(base64));
+          const PromiseList = FileList.map(file => uploadRequest(file));
+          localUrlList = await Promise.all(PromiseList);
+        } else {
+          localUrlList = base64List.map(base64 => {
+            return getLocalTemplateUrl(base64);
+          });
+        }
+        for (const image of images) {
+          const index = images.indexOf(image);
+          const url = await localUrlList[index];
+          content = content.replace(image, url);
+        }
       }
-      console.log(content);
+
+      // console.log(content);
       editor.commands.setContent(content);
     }
   }

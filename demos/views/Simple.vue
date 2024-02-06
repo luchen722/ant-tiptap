@@ -3,6 +3,7 @@
     <a-tiptap
       :extensions="extensions"
       :locale="zh"
+      :readonly="true"
       v-model:content="content"
       placeholder="Write something ..."
     />
@@ -46,8 +47,7 @@ import {
   Print,
   SelectAll,
   CodeView,
-  TextIndent,
-  Paste
+  TextIndent
 } from 'element-tiptap';
 import zh from '@/i18n/locales/zh';
 import codemirror from 'codemirror';
@@ -97,7 +97,6 @@ const extensions = [
   }),
   Fullscreen,
   History,
-  Paste,
 ];
 
 const content = ref(

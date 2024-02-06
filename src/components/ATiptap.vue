@@ -71,9 +71,8 @@ import { useCodeView, useCharacterCount, useEditorStyle, useModel } from '@/hook
 
 import MenuBar from './MenuBar/index.vue';
 import MenuBubble from './MenuBubble/index.vue';
-import { handlePaste } from '@/utils/paste';
-import { Slice } from '@tiptap/pm/model';
-import { EditorView } from '@tiptap/pm/view';
+import { handlePaste as _handlePaste } from '@/utils/paste';
+
 interface Props {
   extensions: Extensions;
   content?: string;
@@ -230,7 +229,7 @@ export default defineComponent({
       editable: !props.readonly,
       onCreate: (options) => {
         emit('onCreate', options);
-        // editor.value!.view.dom.addEventListener('paste', (event) => handlePaste(editor.value, event));
+        // editor.value!.view.dom.addEventListener('paste', (event) => );
       },
       onTransaction: (options) => {
         emit('onTransaction', options);
@@ -246,16 +245,9 @@ export default defineComponent({
       },
       onUpdate,
       editorProps: {
-        // transformPastedHTML: (html: string, view: EditorView) => {
-        //   return html;
-        // },
-        // transformPasted(slice: Slice, view: EditorView) {
-        //   // console.log(slice, view);
-        //   return slice;
-        // },
-        handlePaste(this, view, event) {
-          handlePaste(editor.value, event);
-        },
+        handlePaste(view, event) {
+          _handlePaste(editor.value, event);
+        }
       }
     });
 

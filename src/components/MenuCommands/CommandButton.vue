@@ -1,18 +1,12 @@
 <template>
-  <!-- <a-tooltip
-    :mouseEnterDelay="350"
-    :disabled="!enableTooltip || readonly"
+  <a-tooltip
     placement="top"
-  > -->
-    <div>
-      <!-- <template #title>
-      {{ tooltip }}
-    </template> -->
-    <div :class="commandButtonClass" :title="tooltip" @mousedown.prevent @click="onClick">
+    :title="tooltip"
+  >
+    <div :class="commandButtonClass" @mousedown.prevent @click="onClick">
       <v-icon :name="icon" />
     </div>
-    </div>
-  <!-- </a-tooltip> -->
+  </a-tooltip>
 </template>
 
 <script lang="ts">

@@ -18,7 +18,7 @@
         <a-form-item
           :label="t('editor.extensions.Image.control.edit_image.form.src')"
         >
-          <a-input :value="imageAttrs.src" autocomplete="off" disabled />
+          <a-input :value="imageAttrs.src" autocomplete="off" />
         </a-form-item>
 
         <a-form-item

@@ -80,7 +80,7 @@ const Image = TiptapImage.extend({
         },
       },
       description: {
-        default: 'default description',
+        default: '',
         parseHTML: (element: any) => {
           return element.getAttribute('data-description') || null;
         },
