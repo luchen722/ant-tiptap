@@ -51,14 +51,14 @@ const FontSize = Extension.create<FontSizeOptions>({
         attributes: {
           fontSize: {
             default: null,
-            parseHTML: (element) => convertToPX(element.style.fontSize) || '',
+            parseHTML: (element) => element.style.fontSize || '',
             renderHTML: (attributes) => {
               if (!attributes.fontSize) {
                 return {};
               }
 
               return {
-                style: `font-size: ${attributes.fontSize}px`,
+                style: `font-size: ${attributes.fontSize}`,
               };
             },
           },
