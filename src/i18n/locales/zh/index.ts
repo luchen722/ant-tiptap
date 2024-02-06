@@ -209,6 +209,16 @@ export default {
       CodeView: {
         tooltip: '查看源代码',
       },
+      Paste: {
+        tooltip: '粘贴',
+      },
+      TextIndent: {
+        buttons: {
+          indent: {
+            tooltip: '首行缩进',
+          },
+        },
+      }
     },
     characters: '字数',
   },

@@ -15,33 +15,31 @@ declare module '@tiptap/core' {
       /**
        * Set the indent attribute
        */
-      indent: () => ReturnType;
+      textIndent: () => ReturnType;
       /**
        * Set the outdent attribute
        */
-      outdent: () => ReturnType;
+      textOutdent: () => ReturnType;
     };
   }
 }
 
-const Indent = Extension.create<IndentOptions>({
-  name: 'indent',
+const TextIndent = Extension.create({
+  name: 'TextIndent',
 
   addOptions() {
     return {
-      types: ['paragraph', 'heading', 'blockquote'],
-      minIndent: IndentProps.min,
-      maxIndent: IndentProps.max,
+      types: ['paragraph'],
       button({ editor, t }: { editor: Editor; t: (...args: any[]) => string }) {
         return [
           {
             component: CommandButton,
             componentProps: {
               command: () => {
-                editor.commands.indent();
+                editor.commands.textIndent();
               },
               icon: 'text-indent',
-              tooltip: t('editor.extensions.Indent.buttons.indent.tooltip'),
+              tooltip: t('editor.extensions.TextIndent.buttons.indent.tooltip'),
             },
           }
         ];
@@ -64,8 +62,11 @@ const Indent = Extension.create<IndentOptions>({
               if (!attributes.textIndent) {
                 return {};
               }
-
-              return { 'data-text-indent': attributes.textIndent };
+              let textIndent = attributes.textIndent;
+              if (textIndent < 0) {
+                textIndent = 0;
+              }
+              return { 'data-text-indent': textIndent, style: `text-indent: ${textIndent * 2}em` };
             },
           },
         },
@@ -82,11 +83,11 @@ const Indent = Extension.create<IndentOptions>({
         const tr = state.tr;
         state.doc.nodesBetween(from, to, (node, pos) => {
           if (node.isBlock) {
-            let currentIndent = node.attrs.indent || 0;
+            let currentIndent = node.attrs.textIndent || 0;
             const newIndent = currentIndent >= 0 ? ++currentIndent : 0;
             tr.setNodeMarkup(pos, null, {
               ...node.attrs,
-              indent: newIndent
+              textIndent: newIndent
             });
           }
         });
@@ -104,11 +105,11 @@ const Indent = Extension.create<IndentOptions>({
         const tr = state.tr;
         state.doc.nodesBetween(from, to, (node, pos) => {
           if (node.isBlock) {
-            let currentIndent = node.attrs.indent || 0;
+            let currentIndent = node.attrs.textIndent || 0;
             const newIndent = currentIndent >= 0 ? --currentIndent : 0;
             tr.setNodeMarkup(pos, null, {
               ...node.attrs,
-              indent: newIndent
+              textIndent: newIndent
             });
           }
         });
@@ -130,4 +131,4 @@ const Indent = Extension.create<IndentOptions>({
   },
 });
 
-export default Indent;
+export default TextIndent;

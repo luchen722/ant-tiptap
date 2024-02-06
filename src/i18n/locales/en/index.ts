@@ -209,6 +209,16 @@ export default {
       CodeView: {
         tooltip: 'Code view',
       },
+      Paste: {
+        tooltip: 'Paste',
+      },
+      TextIndent: {
+        buttons: {
+          indent: {
+            tooltip: 'TextIndent',
+          },
+        },
+      }
     },
     characters: 'Characters',
   },
