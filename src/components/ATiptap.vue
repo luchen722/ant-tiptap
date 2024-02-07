@@ -46,7 +46,7 @@
       ]"
     >
       <span class="el-tiptap-editor__characters">
-        {{ t('editor.characters') }}: {{ characters }}
+        {{ t('editor.characters') }}: {{ characters }}{{ charCountMax ? '/' + charCountMax : ''}}
       </span>
     </div>
   </div>
@@ -148,6 +148,7 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    // 最大字符数
     charCountMax: {
       type: Number,
       default: undefined,

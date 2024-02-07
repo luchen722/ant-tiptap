@@ -4,6 +4,7 @@
       :extensions="extensions"
       :locale="zh"
       v-model:content="content"
+      :charCountMax="10000"
       placeholder="Write something ..."
     />
   </div>
@@ -66,7 +67,11 @@ const extensions = [
   Underline.configure({ bubble: true }),
   Italic.configure({ bubble: true }),
   Strike.configure({ bubble: true }),
-  Table,
+  Table.configure({
+    HTMLAttributes: {
+      style: 'border-collapse: collapse;',
+    }
+  }),
   Code,
   Color,
   Link.configure({ bubble: true }),
