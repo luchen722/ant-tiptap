@@ -114,7 +114,7 @@ export const getLocalTemplateUrl = (base64: any): Promise<string> => {
 
 export const handlePaste = async(editor: Editor, event: ClipboardEvent): Promise<boolean | undefined> => {
   event.preventDefault();
-  const clipData = event.clipboardData;
+  const clipData = await event.clipboardData;
   if (!clipData) return false;
   const uploadRequest = editor.extensionManager.extensions.find(ext => ext.name === 'image')?.options?.uploadRequest;
   let content = editor.getHTML();
@@ -186,7 +186,7 @@ export const handlePaste = async(editor: Editor, event: ClipboardEvent): Promise
       }
 
       // console.log(content);
-      editor.commands.setContent(content);
+      editor.commands.setContent(content, true);
     }
   }
   return result;
