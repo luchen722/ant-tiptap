@@ -46,7 +46,8 @@ import {
   Print,
   SelectAll,
   CodeView,
-  TextIndent
+  TextIndent,
+  ImportWord
 } from 'element-tiptap';
 import zh from '@/i18n/locales/zh';
 import codemirror from 'codemirror';
@@ -96,6 +97,7 @@ const extensions = [
   }),
   Fullscreen,
   History,
+  ImportWord
 ];
 
 const content = ref(
