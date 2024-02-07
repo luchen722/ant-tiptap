@@ -220,6 +220,9 @@ export default {
             tooltip: 'TextIndent',
           },
         },
+      },
+      ImportWord: {
+        tooltip: 'Import from Word',
       }
     },
     characters: 'Characters',

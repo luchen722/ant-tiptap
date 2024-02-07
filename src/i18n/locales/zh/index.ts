@@ -220,6 +220,9 @@ export default {
             tooltip: '首行缩进',
           },
         },
+      },
+      ImportWord: {
+        tooltip: '导入文档',
       }
     },
     characters: '字数',

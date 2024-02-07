@@ -27,7 +27,7 @@ const ImportWord = Extension.create({
               editor.commands.importWord();
             },
             icon: 'import-word',
-            tooltip: t('editor.extensions.Print.tooltip'),
+            tooltip: t('editor.extensions.ImportWord.tooltip'),
           },
         };
       },
