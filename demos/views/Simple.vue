@@ -3,7 +3,6 @@
     <a-tiptap
       :extensions="extensions"
       :locale="zh"
-      :readonly="true"
       v-model:content="content"
       placeholder="Write something ..."
     />

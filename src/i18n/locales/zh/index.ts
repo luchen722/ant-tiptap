@@ -63,6 +63,8 @@ export default {
           },
           remove_image: {
             tooltip: '删除',
+            success: '删除成功',
+            fail: '删除失败',
           },
           image_options: {
             tooltip: '图片属性',

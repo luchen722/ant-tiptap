@@ -63,6 +63,8 @@ export default {
           },
           remove_image: {
             tooltip: 'Remove',
+            success: 'Successful',
+            fail: 'Fail',
           },
           image_options: {
             tooltip: 'Image options',
