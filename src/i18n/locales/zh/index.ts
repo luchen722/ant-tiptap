@@ -223,6 +223,9 @@ export default {
       },
       ImportWord: {
         tooltip: '导入文档',
+        loading: '导入中...',
+        success: '导入成功',
+        fail: '导入失败',
       }
     },
     characters: '字数',

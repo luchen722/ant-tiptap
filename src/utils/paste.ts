@@ -56,7 +56,6 @@ export function extractImageDataFromRtf(rtfData: any) {
 // 将图片转成base64
 export function replaceImagesFileSourceWithInlineRepresentation(imageElements: string[], imagesHexSources: string | any[]) {
   const srcs = [];
-  console.log(imagesHexSources);
 
   // Assume there is an equal amount of image elements and images HEX sources so they can be matched accordingly based on existing order.
   if (imageElements.length === imagesHexSources.length) {
@@ -125,8 +124,6 @@ export const handlePaste = async(editor: Editor, event: ClipboardEvent): Promise
   if (files.length > 0) {
     // 获取文件
     for (const file of files) {
-      console.log(file);
-
       try {
         // 图片
         if (file.type.startsWith('image/')) {

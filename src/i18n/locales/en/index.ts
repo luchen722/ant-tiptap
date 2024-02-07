@@ -223,6 +223,9 @@ export default {
       },
       ImportWord: {
         tooltip: 'Import from Word',
+        loading: 'Importing...',
+        success: 'Successfully imported',
+        fail: 'Import failed',
       }
     },
     characters: 'Characters',
