@@ -76,13 +76,7 @@ const extensions = [
   Color,
   Link.configure({ bubble: true }),
   Image.configure({
-    uploadRequest: (file) => {
-      console.log(file);
-      // 这里应该返回一个Promise
-      return new Promise((resolve) => {
-        resolve('https://picsum.photos/200/200?t=' + Date.now() + Math.random());
-      });
-    }
+
   }),
   Blockquote,
   TextAlign,

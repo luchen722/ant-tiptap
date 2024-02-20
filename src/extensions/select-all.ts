@@ -13,7 +13,7 @@ const SelectAll = Extension.create({
           component: CommandButton,
           componentProps: {
             command: () => {
-              editor.commands.selectAll();
+              editor.chain().focus().selectAll().run();
             },
             icon: 'select-all',
             tooltip: t('editor.extensions.SelectAll.tooltip'),
