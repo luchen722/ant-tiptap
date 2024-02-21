@@ -17,12 +17,12 @@
       <a-form :model="linkAttrs" label-position="right" size="small">
         <a-form-item
           :label="t('editor.extensions.Link.edit.control.href')"
-          prop="href"
+          name="href"
         >
-          <a-input v-model:value="linkAttrs.href" autocomplete="off" />
+          <a-input ref="inputRef" autofocus v-model:value="linkAttrs.href" autocomplete="off" />
         </a-form-item>
 
-        <a-form-item prop="openInNewTab">
+        <a-form-item name="openInNewTab">
           <a-checkbox v-model:checked="linkAttrs.openInNewTab">
             {{ t('editor.extensions.Link.edit.control.open_in_new_tab') }}
           </a-checkbox>
@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject } from 'vue';
+import { defineComponent, inject, nextTick, ref } from 'vue';
 import { Editor } from '@tiptap/vue-3';
 import {
   Modal,
@@ -73,14 +73,15 @@ export default defineComponent({
   setup() {
     const t = inject('t');
     const enableTooltip = inject('enableTooltip', true);
+    const inputRef = ref();
+    const editLinkDialogVisible = ref(false);
 
-    return { t, enableTooltip };
+    return { t, enableTooltip, inputRef, editLinkDialogVisible };
   },
 
   data() {
     return {
       linkAttrs: this.initLinkAttrs,
-      editLinkDialogVisible: false,
     };
   },
 
@@ -93,6 +94,9 @@ export default defineComponent({
 
     openEditLinkDialog() {
       this.editLinkDialogVisible = true;
+      nextTick(() => {
+        this.inputRef.focus();
+      });
     },
 
     closeEditLinkDialog() {

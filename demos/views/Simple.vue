@@ -73,14 +73,14 @@ const extensions = [
     }
   }),
   Code,
-  Color,
+  Color.configure({ bubble: true }),
   Link.configure({ bubble: true }),
   Image.configure({
 
   }),
   Blockquote,
-  TextAlign,
-  LineHeight,
+  TextAlign.configure({ bubble: true }),
+  LineHeight.configure({ bubble: true }),
   BulletList.configure({ bubble: true }),
   OrderedList.configure({ bubble: true }),
   TaskList,

@@ -32,7 +32,7 @@
       :enable-tooltip="enableTooltip"
       :is-active="editor.isActive('heading')"
       :tooltip="t('editor.extensions.Heading.tooltip')"
-      :disabled="isCodeViewMode"
+      :readonly="isCodeViewMode"
       icon="heading"
     />
   </a-dropdown>

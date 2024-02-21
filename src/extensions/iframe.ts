@@ -44,7 +44,8 @@ const Iframe = Node.create({
       'iframe',
       mergeAttributes(HTMLAttributes, {
         frameborder: 0,
-        allowfullscreen: 'true',
+        allowfullscreen: 'true', // 允许iframe调用全屏API
+        autoplay: 'false', // 禁止视频自动播放
       }),
     ];
   },

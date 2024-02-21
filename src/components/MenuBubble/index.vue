@@ -1,6 +1,7 @@
 <template>
-  <bubble-menu v-if="editor" :editor="editor">
+  <bubble-menu v-if="editor" :editor="editor" :tippy-options="{ maxWidth: 44*8+10 }">
     <div
+      v-show="activeMenu !== 'none'"
       :class="{
         'el-tiptap-editor__menu-bubble--active': bubbleMenuEnable,
       }"
@@ -28,6 +29,14 @@
           :readonly="isCodeViewMode"
           v-on="spec.componentEvents || {}"
         />
+        <div
+          v-if="isLinkBack"
+          class="el-tiptap-editor__command-button"
+          @mousedown.prevent
+          @click="linkFrom"
+        >
+          <v-icon name="arrow-right" />
+        </div>
       </template>
     </div>
   </bubble-menu>
@@ -36,15 +45,16 @@
 <script lang="ts">
 import { defineComponent, inject } from 'vue';
 import { Editor, BubbleMenu } from '@tiptap/vue-3';
-import { getMarkRange } from '@tiptap/core';
 import { TextSelection, AllSelection, Selection } from '@tiptap/pm/state';
+import { CellSelection } from '@tiptap/pm/tables';
 import VIcon from '../Icon/Icon.vue';
 import LinkBubbleMenu from './LinkBubbleMenu.vue';
-
+import { getMarkRange } from '@/utils/link';
 const enum MenuType {
   NONE = 'none',
   DEFAULT = 'default',
   LINK = 'link',
+  TABLE = 'table'
 }
 
 export default defineComponent({
@@ -146,11 +156,13 @@ export default defineComponent({
       this.setMenuType(MenuType.DEFAULT);
       this.isLinkBack = true;
     },
-
+    linkFrom() {
+      this.setMenuType(MenuType.LINK);
+      this.isLinkBack = false;
+    },
     setMenuType(type: MenuType) {
       this.activeMenu = type;
     },
-
     $_isLinkSelection(selection: Selection) {
       const { schema } = this.editor;
       const linkType = schema.marks.link;
@@ -161,11 +173,14 @@ export default defineComponent({
       const range = getMarkRange($from, linkType);
       if (!range) return false;
 
-      return range.to === $to.pos;
+      return range.from <= $from.pos && range.to >= $to.pos;
     },
 
     $_getCurrentMenuType(): MenuType {
       if (this.isLinkSelection) return MenuType.LINK;
+      if (this.editor.state.selection instanceof CellSelection) {
+        return MenuType.TABLE;
+      }
       if (
         this.editor.state.selection instanceof TextSelection ||
         this.editor.state.selection instanceof AllSelection

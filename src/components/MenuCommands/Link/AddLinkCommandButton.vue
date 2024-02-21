@@ -19,12 +19,12 @@
       <a-form :model="linkAttrs" label-position="right" size="small">
         <a-form-item
           :label="t('editor.extensions.Link.add.control.href')"
-          prop="href"
+          name="href"
         >
-          <a-input v-model:value="linkAttrs.href" autocomplete="off" />
+          <a-input ref="inputRef" v-model:value="linkAttrs.href" autocomplete="off" />
         </a-form-item>
 
-        <a-form-item prop="openInNewTab">
+        <a-form-item name="openInNewTab">
           <a-checkbox v-model:checked="linkAttrs.openInNewTab">
             {{ t('editor.extensions.Link.add.control.open_in_new_tab') }}
           </a-checkbox>
@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject } from 'vue';
+import { defineComponent, inject, nextTick, ref } from 'vue';
 import {
   Modal,
   Form,
@@ -71,8 +71,8 @@ export default defineComponent({
     const t = inject('t');
     const enableTooltip = inject('enableTooltip', true);
     const isCodeViewMode = inject('isCodeViewMode', true);
-
-    return { t, enableTooltip, isCodeViewMode };
+    const inputRef = ref();
+    return { t, enableTooltip, isCodeViewMode, inputRef };
   },
 
   data() {
@@ -95,6 +95,9 @@ export default defineComponent({
   methods: {
     openAddLinkDialog() {
       this.addLinkDialogVisible = true;
+      nextTick(() => {
+        this.inputRef.focus();
+      });
     },
 
     closeAddLinkDialog() {
