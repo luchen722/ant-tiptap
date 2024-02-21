@@ -23,7 +23,7 @@
             }"
             class="el-tiptap-dropdown-menu__item"
           >
-            <span :data-font-size="fontSize">{{ fontSize }}px</span>
+            <span :data-font-size="fontSize">{{ fontSize }}</span>
           </div>
         </a-menu-item>
       </a-menu>

@@ -1,7 +1,6 @@
 import { Editor, Extension } from '@tiptap/core';
 import {
   DEFAULT_FONT_SIZES,
-  convertToPX,
   DEFAULT_FONT_SIZE,
 } from '@/utils/font-size';
 import FontSizeDropdown from '@/components/MenuCommands/FontSizeDropdown.vue';

@@ -16,7 +16,7 @@ const Iframe = Node.create({
 
   // schema
   group: 'block',
-  selectable: false,
+  selectable: true,
 
   addAttributes() {
     return {

@@ -288,7 +288,6 @@ export default defineComponent({
       width: props.width,
       height: props.height,
     });
-
     provide('t', t);
     provide('et', this);
 

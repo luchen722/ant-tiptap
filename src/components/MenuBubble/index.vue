@@ -1,5 +1,5 @@
 <template>
-  <bubble-menu v-if="editor" :editor="editor" :tippy-options="{ maxWidth: 44*8+10 }">
+  <bubble-menu v-if="editor" :editor="editor" :tippy-options="{ maxWidth: 44*8+10, placement: 'bottom', zIndex: 999 }">
     <div
       v-show="activeMenu !== 'none'"
       :class="{
