@@ -60,6 +60,7 @@ import {
   ref,
   toRaw,
   unref,
+  watch,
   watchEffect,
 } from 'vue';
 import { Editor, Extensions } from '@tiptap/core';
@@ -247,7 +248,12 @@ export default defineComponent({
         }
       }
     });
-
+    // 修复初始赋值不生效的问题
+    watch(() => props.content, () => {
+      if (editor.value) {
+        editor.value.commands.setContent(props.content);
+      }
+    });
     watchEffect(() => {
       // eslint-disable-next-line no-unused-expressions
       unref(editor)?.setOptions({
