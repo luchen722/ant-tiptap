@@ -56,6 +56,7 @@
 import {
   computed,
   defineComponent,
+  nextTick,
   provide,
   ref,
   toRaw,
@@ -67,6 +68,7 @@ import { Editor, Extensions } from '@tiptap/core';
 import { AnyExtension, EditorContent, useEditor } from '@tiptap/vue-3';
 import TiptapPlaceholder from '@tiptap/extension-placeholder';
 import CharacterCount from '@tiptap/extension-character-count';
+import Gapcursor from '@tiptap/extension-gapcursor';
 import { Trans } from '@/i18n';
 import { useCodeView, useCharacterCount, useEditorStyle, useModel } from '@/hooks';
 
@@ -205,6 +207,7 @@ export default defineComponent({
             limit: props.charCountMax,
           })
           : null,
+        Gapcursor
       ])
       .filter(Boolean);
 
@@ -215,10 +218,14 @@ export default defineComponent({
       } else {
         output = editor.getJSON();
       }
-
       emit('update:content', output);
 
       emit('onUpdate', output, editor);
+
+      const { from, to } = editor.state.selection;
+      nextTick(() => {
+        editor.chain().focus().setTextSelection({ from, to }).run();
+      });
     };
 
     const editor = useEditor({

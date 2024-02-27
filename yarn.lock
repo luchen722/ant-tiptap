@@ -1757,6 +1757,11 @@
   dependencies:
     "tippy.js" "^6.3.7"
 
+"@tiptap/extension-gapcursor@^2.2.4":
+  "integrity" "sha512-Y6htT/RDSqkQ1UwG2Ia+rNVRvxrKPOs3RbqKHPaWr3vbFWwhHyKhMCvi/FqfI3d5pViVHOZQ7jhb5hT/a0BmNw=="
+  "resolved" "https://registry.npmmirror.com/@tiptap/extension-gapcursor/-/extension-gapcursor-2.2.4.tgz"
+  "version" "2.2.4"
+
 "@tiptap/extension-hard-break@^2.0.0-beta.30":
   "integrity" "sha512-nqKcAYGEOafg9D+2cy1E4gHNGuL12LerVa0eS2SQOb+PT8vSel9OTKU1RyZldsWSQJ5rq/w4uIjmLnrSR2w6Yw=="
   "resolved" "https://registry.npmmirror.com/@tiptap/extension-hard-break/-/extension-hard-break-2.1.12.tgz"
@@ -2921,6 +2926,8 @@
     "color-convert" "^2.0.1"
 
 "ansicolors@*":
+  "integrity" "sha512-QXu7BPrP29VllRxH8GwB7x5iX5qWKAAMLqKQGWTeLWVlNHNOpVMJ91dsxQAIWXpjuW5wqvxu3Jd/nRjrJ+0pqg=="
+  "resolved" "https://registry.npmmirror.com/ansicolors/-/ansicolors-0.3.2.tgz"
   "version" "0.3.2"
 
 "ansicolors@~0.3.2":

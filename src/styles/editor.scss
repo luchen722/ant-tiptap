@@ -36,7 +36,10 @@
     border-bottom-right-radius: 8px;
     color: $black-color;
     flex-grow: 1;
-    padding: 30px 20px;
+
+    .tiptap {
+      padding: 30px 20px;
+    }
 
     .ant-message {
       position: absolute;
@@ -270,6 +273,9 @@
       line-height: 0;
       margin: 12px 0 24px;
       max-width: 100%;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
       user-select: none;
       vertical-align: baseline;
 

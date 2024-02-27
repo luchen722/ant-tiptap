@@ -34,8 +34,8 @@
         <a-input
           v-model:value="colorText"
           placeholder="HEX"
-          autofocus="true"
-          maxlength="7"
+          :autofocus="true"
+          :maxlength="7"
           size="small"
           class="color-hex__input"
         />
