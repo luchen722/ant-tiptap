@@ -48,10 +48,26 @@ export function resolveImg(src: string): Promise<ImageResult> {
     img.src = src;
   });
 }
-
+export const enum ImageAlign {
+  LEFT = 'left',
+  CENTER = 'center',
+  RIGHT = 'right',
+};
 export const enum ImageDisplay {
   INLINE = 'inline',
   BREAK_TEXT = 'block',
   FLOAT_LEFT = 'left',
   FLOAT_RIGHT = 'right',
+};
+export const Display = {
+  inline: ``,
+  block: `display: block`,
+  left: `float: left;margin-left: 0;margin-right: 12px`,
+  right: `float: right;margin-left: 12px;margin-right: 0`,
+};
+
+export const Align = {
+  left: 'margin-left: 0;margin-right: auto',
+  center: 'margin-left: auto;margin-right: auto',
+  right: 'margin-left: auto;margin-right: 0'
 };

@@ -8,17 +8,17 @@
     <template #content>
       <div class="el-tiptap-popper__menu">
         <div
-          v-for="display in displayCollection"
-          :key="display"
+          v-for="align in alignCollection"
+          :key="align"
           :class="{
-            'el-tiptap-popper__menu__item--active': display === currDisplay,
+            'el-tiptap-popper__menu__item--active': align === currDisplay,
           }"
           class="el-tiptap-popper__menu__item"
           @mouseup="hidePopover"
-          @click="updateAttrs!({ display })"
+          @click="updateAttrs!({ align })"
         >
           <span>{{
-            t(`editor.extensions.Image.buttons.display.${display}`)
+            t(`editor.extensions.Image.buttons.align.${align}`)
           }}</span>
         </div>
       </div>
@@ -27,7 +27,7 @@
       <command-button
         :enable-tooltip="enableTooltip"
         :tooltip="t('editor.extensions.Image.buttons.display.tooltip')"
-        icon="image-align"
+        icon="align-left"
       />
     </span>
   </a-popover>
@@ -37,11 +37,11 @@
 import { defineComponent, inject, ref } from 'vue';
 import { nodeViewProps } from '@tiptap/vue-3';
 import { Popover } from 'ant-design-vue';
-import { ImageDisplay } from '@/utils/image';
+import { ImageAlign } from '@/utils/image';
 import CommandButton from '../CommandButton.vue';
 
 export default defineComponent({
-  name: 'ImageDisplayCommandButton',
+  name: 'ImageAlignCommandButton',
 
   components: {
     APopover: Popover,
@@ -54,11 +54,10 @@ export default defineComponent({
 
   data() {
     return {
-      displayCollection: [
-        ImageDisplay.INLINE,
-        ImageDisplay.BREAK_TEXT,
-        ImageDisplay.FLOAT_LEFT,
-        ImageDisplay.FLOAT_RIGHT,
+      alignCollection: [
+        ImageAlign.LEFT,
+        ImageAlign.CENTER,
+        ImageAlign.RIGHT,
       ],
     };
   },
@@ -75,8 +74,8 @@ export default defineComponent({
 
   computed: {
     currDisplay() {
-      return this.node!.attrs.display;
+      return this.node!.attrs.align;
     },
-  }
+  },
 });
 </script>

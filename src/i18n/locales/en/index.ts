@@ -76,6 +76,12 @@ export default {
             left: 'Float Left',
             right: 'Float Right',
           },
+          align: {
+            tooltip: 'Alignment',
+            center: 'Center',
+            left: 'Left',
+            right: 'Right',
+          }
         },
         control: {
           insert_by_url: {
@@ -99,6 +105,7 @@ export default {
               width: 'Width',
               height: 'Height',
               description: 'Description',
+              align: 'Alignment',
             },
           },
         },

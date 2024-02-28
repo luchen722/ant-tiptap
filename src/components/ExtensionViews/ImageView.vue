@@ -1,57 +1,58 @@
 <template>
-  <node-view-wrapper as="span" :class="imageViewClass">
-    <div
-      :class="{
-        'image-view__body--focused': selected,
-        'image-view__body--resizing': resizing,
-      }"
-      class="image-view__body"
-    >
-      <img
-        :src="src"
-        :title="node!.attrs.title"
-        :alt="node!.attrs.alt"
-        :width="width"
-        :height="height"
-        @click="selectImage"
-        class="image-view__body__image"
-      />
-
+  <node-view-wrapper as="span" :class="imageViewClass" >
+    <span :style="display === 'block' ? 'display: block;width: max-content;' + Align[align]:''">
       <div
-        v-if="editor?.isEditable"
-        v-show="selected || resizing"
-        class="image-resizer"
+        :class="{
+          'image-view__body--focused': selected,
+          'image-view__body--resizing': resizing,
+        }"
+        class="image-view__body"
       >
-        <span
-          v-for="direction in resizeDirections"
-          :key="direction"
-          :class="`image-resizer__handler--${direction}`"
-          class="image-resizer__handler"
-          @mousedown="onMouseDown($event, direction)"
+        <img
+          :src="src"
+          :title="node!.attrs.title"
+          :alt="node!.attrs.alt"
+          :width="width"
+          :height="height"
+          @click="selectImage"
+          class="image-view__body__image"
         />
-      </div>
 
-      <!-- when image is break text or float
-      bubble menu's position is miscalculated
-      use el-popover instead bubble menu -->
-      <a-popover
-        :open="selected"
-        placement="top"
-        overlayClassName="el-tiptap-image-popper"
-        :getPopupContainer="(triggerNode) => triggerNode.parentNode"
-      >
-        <template #content>
-          <image-bubble-menu
-            :node="node"
-            :editor="editor"
-            :update-attrs="updateAttributes"
+        <div
+          v-if="editor?.isEditable && (selected || resizing)"
+          v-show="selected || resizing"
+          class="image-resizer"
+        >
+          <span
+            v-for="direction in resizeDirections"
+            :key="direction"
+            :class="`image-resizer__handler--${direction}`"
+            class="image-resizer__handler"
+            @mousedown="onMouseDown($event, direction)"
           />
-        </template>
-        <div class="image-view__body__placeholder" />
-      </a-popover>
-      <div class="image-view__body__description" v-if="description">{{ description }}</div>
-    </div>
+        </div>
 
+        <!-- when image is break text or float
+        bubble menu's position is miscalculated
+        use el-popover instead bubble menu -->
+        <a-popover
+          :open="selected"
+          placement="top"
+          overlayClassName="el-tiptap-image-popper"
+          :getPopupContainer="(triggerNode) => triggerNode.parentNode"
+        >
+          <template #content>
+            <image-bubble-menu
+              :node="node"
+              :editor="editor"
+              :update-attrs="updateAttributes"
+            />
+          </template>
+          <div class="image-view__body__placeholder" />
+        </a-popover>
+        <div class="image-view__body__description" v-if="description">{{ description }}</div>
+      </div>
+    </span>
   </node-view-wrapper>
 </template>
 
@@ -60,7 +61,7 @@ import { defineComponent } from 'vue';
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3';
 import { Popover } from 'ant-design-vue';
 import { ResizeObserver } from '@juggle/resize-observer';
-import { resolveImg, ImageDisplay } from '@/utils/image';
+import { resolveImg, ImageDisplay, ImageAlign, Align } from '@/utils/image';
 import { clamp } from '@/utils/shared';
 import ImageBubbleMenu from '../MenuBubble/ImageBubbleMenu.vue';
 
@@ -96,7 +97,7 @@ export default defineComponent({
         width: 0,
         height: 0,
       },
-
+      Align,
       resizeDirections: [
         ResizeDirection.TOP_LEFT,
         ResizeDirection.TOP_RIGHT,
@@ -132,7 +133,9 @@ export default defineComponent({
     description(): string {
       return this.node!.attrs.description;
     },
-
+    align(): ImageAlign {
+      return this.node!.attrs.align;
+    },
     display(): ImageDisplay {
       return this.node!.attrs.display;
     },

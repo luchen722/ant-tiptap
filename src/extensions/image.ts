@@ -3,26 +3,29 @@ import { VueNodeViewRenderer } from '@tiptap/vue-3';
 import TiptapImage from '@tiptap/extension-image';
 import InsertImageCommandButton from '@/components/MenuCommands/Image/InsertImageCommandButton.vue';
 import ImageView from '@/components/ExtensionViews/ImageView.vue';
-import { ImageDisplay } from '@/utils/image';
+import { ImageDisplay, Align, Display } from '@/utils/image';
 import {
   DEFAULT_IMAGE_WIDTH,
   DEFAULT_IMAGE_DISPLAY,
   DEFAULT_IMAGE_URL_REGEX,
+  DEFAULT_IMAGE_ALIGNMENT,
 } from '@/constants';
 
 const Image = TiptapImage.extend({
   // https://github.com/ueberdosis/tiptap/issues/1206
   inline() {
-    return true;
+    return this.options.inline;
   },
-
   group() {
-    return 'inline';
+    return this.options.inline ? 'inline' : 'block';
   },
+  draggable: true,
 
   addAttributes() {
     return {
       ...this.parent?.(),
+      inline: true,
+      // 宽
       width: {
         default: DEFAULT_IMAGE_WIDTH,
         parseHTML: (element) => {
@@ -33,9 +36,11 @@ const Image = TiptapImage.extend({
         renderHTML: (attributes) => {
           return {
             width: attributes.width,
+            style: `max-width: ${this.options.maxWidth}`
           };
         },
       },
+      // 高
       height: {
         default: null,
         parseHTML: (element) => {
@@ -49,6 +54,7 @@ const Image = TiptapImage.extend({
           };
         },
       },
+      // 布局
       display: {
         default: DEFAULT_IMAGE_DISPLAY,
         parseHTML: (element) => {
@@ -67,7 +73,7 @@ const Image = TiptapImage.extend({
           } else if (!cssFloat && display === 'block') {
             dp = ImageDisplay.BREAK_TEXT;
           } else {
-            dp = ImageDisplay.INLINE;
+            dp = ImageDisplay.BREAK_TEXT;
           }
 
           return dp;
@@ -76,9 +82,25 @@ const Image = TiptapImage.extend({
         renderHTML: (attributes) => {
           return {
             'data-display': attributes.display,
+            style: Display[attributes.display]
           };
         },
       },
+      // 对齐方式
+      align: {
+        default: DEFAULT_IMAGE_ALIGNMENT,
+        parseHTML: (element) => {
+          return element.dataset.align;
+        },
+
+        renderHTML: (attributes) => {
+          return {
+            'data-align': attributes.align,
+            style: attributes.display === 'block' ? Align[attributes.align] : ''
+          };
+        },
+      },
+      // 描述
       description: {
         default: '',
         parseHTML: (element: any) => {
@@ -98,6 +120,7 @@ const Image = TiptapImage.extend({
       ...this.parent?.(),
       inline: true,
       uploadRequest: null,
+      maxWidth: '100%',
       urlPattern: DEFAULT_IMAGE_URL_REGEX,
       button({ editor }: { editor: Editor }) {
         return {

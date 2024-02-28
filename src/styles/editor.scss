@@ -268,10 +268,9 @@
     .image-view {
       $root: &;
 
-      display: inline-block;
+      display: block;
       float: none;
       line-height: 0;
-      margin: 12px 0 24px;
       max-width: 100%;
       -webkit-user-select: none;
       -moz-user-select: none;

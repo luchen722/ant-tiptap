@@ -1,5 +1,7 @@
 <template>
   <div class="image-bubble-menu">
+    <ImageAlignCommandButton :node="node" :update-attrs="updateAttrs"/>
+
     <image-display-command-button :node="node" :update-attrs="updateAttrs" />
 
     <edit-image-command-button :node="node" :update-attrs="updateAttrs" />
@@ -11,20 +13,22 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { nodeViewProps } from '@tiptap/vue-3';
+import ImageAlignCommandButton from '../MenuCommands/Image/ImageAlignCommandButton.vue';
 import ImageDisplayCommandButton from '../MenuCommands/Image/ImageDisplayCommandButton.vue';
 import EditImageCommandButton from '../MenuCommands/Image/EditImageCommandButton.vue';
 import RemoveImageCommandButton from '../MenuCommands/Image/RemoveImageCommandButton.vue';
 
 export default defineComponent({
   components: {
+    ImageAlignCommandButton,
     ImageDisplayCommandButton,
     EditImageCommandButton,
     RemoveImageCommandButton,
   },
   props: {
-    editor: nodeViewProps['editor'],
-    node: nodeViewProps['node'],
-    updateAttrs: nodeViewProps['updateAttributes'],
+    editor: nodeViewProps.editor,
+    node: nodeViewProps.node,
+    updateAttrs: nodeViewProps.updateAttributes,
   },
 });
 </script>

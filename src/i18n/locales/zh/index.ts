@@ -76,6 +76,12 @@ export default {
             left: '左浮动',
             right: '右浮动',
           },
+          align: {
+            tooltip: '对齐方式',
+            center: '居中',
+            left: '左对齐',
+            right: '右对齐',
+          }
         },
         control: {
           insert_by_url: {
@@ -99,6 +105,7 @@ export default {
               width: '宽度',
               height: '高度',
               description: '描述',
+              align: '对齐方式',
             },
           },
         },

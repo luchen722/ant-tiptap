@@ -28,23 +28,40 @@
         </a-form-item>
 
         <a-form-item>
-          <a-col :span="11">
-            <a-form-item
-              :label="
-                t('editor.extensions.Image.control.edit_image.form.width')
-              "
-            >
-              <a-input-number v-model:value="imageAttrs.width" />
-            </a-form-item>
+          <a-col>
+            <a-row>
+              <a-col :span="11">
+                <a-form-item
+                  :label="
+                    t('editor.extensions.Image.control.edit_image.form.width')
+                  "
+                >
+                  <a-input-number v-model:value="imageAttrs.width" />
+                </a-form-item>
+              </a-col>
+              <a-col :span="11">
+                <a-form-item
+                  :label="
+                    t('editor.extensions.Image.control.edit_image.form.height')
+                  "
+                >
+                  <a-input-number v-model:value="imageAttrs.height" />
+                </a-form-item>
+              </a-col>
+            </a-row>
           </a-col>
-          <a-col :span="11">
-            <a-form-item
-              :label="
-                t('editor.extensions.Image.control.edit_image.form.height')
-              "
-            >
-              <a-input-number v-model:value="imageAttrs.height" />
-            </a-form-item>
+          <a-col :span="24">
+            <a-row>
+              <a-col :span="11">
+                <a-form-item :label="t('editor.extensions.Image.control.edit_image.form.align')">
+                  <a-select v-model:value="imageAttrs.align" :getPopupContainer="tirggerNode => tirggerNode.parentNode">
+                    <a-select-option value="left">{{t('editor.extensions.Image.buttons.align.left')}}</a-select-option>
+                    <a-select-option value="center">{{t('editor.extensions.Image.buttons.align.center')}}</a-select-option>
+                    <a-select-option value="right">{{t('editor.extensions.Image.buttons.align.right')}}</a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+            </a-row>
           </a-col>
           <a-col :span="24">
             <a-form-item
@@ -52,7 +69,7 @@
                 t('editor.extensions.Image.control.edit_image.form.description')
               "
             >
-              <a-input v-model:value="imageAttrs.description" />
+              <a-input v-model:value="imageAttrs.description" :maxlength="30" />
             </a-form-item>
           </a-col>
         </a-form-item>
@@ -98,7 +115,6 @@ export default defineComponent({
     return { t, enableTooltip };
   },
   mounted() {
-    console.log(this.imageAttrs);
   },
   methods: {
     syncImageAttrs() {
@@ -112,6 +128,7 @@ export default defineComponent({
         width: this.node!.attrs.width,
         height: this.node!.attrs.height,
         description: this.node.attrs?.description,
+        align: this.node.attrs?.align,
       };
     },
 
@@ -127,6 +144,7 @@ export default defineComponent({
         width: width >= 0 ? width : null,
         height: height >= 0 ? height : null,
         description: this.imageAttrs.description,
+        align: this.imageAttrs.align,
       });
 
       this.closeEditImageDialog();
@@ -134,6 +152,7 @@ export default defineComponent({
 
     openEditImageDialog() {
       this.editImageDialogVisible = true;
+      this.syncImageAttrs();
     },
 
     closeEditImageDialog() {

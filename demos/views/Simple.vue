@@ -3,10 +3,12 @@
     <a-tiptap
       :extensions="extensions"
       :locale="zh"
+      :output="'html'"
       v-model:content="content"
       :charCountMax="10000"
       placeholder="Write something ..."
     />
+    <div class="preview-mobile" v-html="content"></div>
   </div>
 </template>
 
@@ -68,6 +70,8 @@ const extensions = [
   Italic.configure({ bubble: true }),
   Strike.configure({ bubble: true }),
   Table.configure({
+    resizable: true,
+    lastColumnResizable: false,
     HTMLAttributes: {
       style: 'border-collapse: collapse;',
     }
@@ -111,3 +115,22 @@ const content = ref(
   ''
 );
 </script>
+
+<style lang="scss">
+  .el-tiptap-editor__wrapper {
+    padding-bottom: 24px;
+  }
+  .preview-mobile {
+    width: 375px;
+    height: 667px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    margin: 12px auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 20px;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+</style>

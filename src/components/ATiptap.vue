@@ -13,7 +13,7 @@
   >
     <menu-bubble :editor="editor" :class="editorBubbleMenuClass" />
 
-    <menu-bar :editor="editor" :class="editorMenubarClass" />
+      <menu-bar :editor="editor" :class="editorMenubarClass" />
 
     <div
       v-if="isCodeViewMode"
@@ -302,8 +302,7 @@ export default defineComponent({
       height: props.height,
     });
     provide('t', t);
-    provide('et', this);
-
+    provide('currentEditor', editor);
     return {
       t,
       editor,
