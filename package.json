@@ -1,6 +1,6 @@
 {
   "name": "ant-tiptap",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "🌸A modern WYSIWYG rich-text editor using tiptap and Ant-Design UI for Vue.js",
   "author": "Joker",
   "scripts": {
@@ -105,12 +105,12 @@
   },
   "resolutions": {},
   "bugs": {
-    "url": "https://github.com/Leecason/element-tiptap/issues"
+    "url": "https://github.com/luchen722/ant-tiptap/issues"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
-  "homepage": "https://github.com/Leecason/element-tiptapr#readme",
+  "homepage": "https://github.com/luchen722/ant-tiptap#readme",
   "keywords": [
     "editor",
     "wysiwyg",
@@ -127,6 +127,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Leecason/element-tiptap.git"
+    "url": "https://github.com/luchen722/ant-tiptap.git"
   }
 }
