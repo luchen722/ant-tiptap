@@ -44,17 +44,16 @@
 
 <script lang="ts">
 import { defineComponent, inject } from 'vue';
-import { Editor, BubbleMenu } from '@tiptap/vue-3';
-import { TextSelection, AllSelection, Selection } from '@tiptap/pm/state';
-import { CellSelection } from '@tiptap/pm/tables';
+import { BubbleMenu, Editor } from '@tiptap/vue-3';
+import { AllSelection, Selection, TextSelection } from '@tiptap/pm/state';
 import VIcon from '../Icon/Icon.vue';
 import LinkBubbleMenu from './LinkBubbleMenu.vue';
 import { getMarkRange } from '@/utils/link';
+
 const enum MenuType {
   NONE = 'none',
   DEFAULT = 'default',
-  LINK = 'link',
-  TABLE = 'table'
+  LINK = 'link'
 }
 
 export default defineComponent({
@@ -90,7 +89,11 @@ export default defineComponent({
     const enableTooltip = inject('enableTooltip', true);
     const isCodeViewMode = inject('isCodeViewMode', false);
 
-    return { t, enableTooltip, isCodeViewMode };
+    return {
+      t,
+      enableTooltip,
+      isCodeViewMode,
+    };
   },
 
   computed: {
@@ -169,7 +172,10 @@ export default defineComponent({
       if (!linkType) return false;
       if (!selection) return false;
 
-      const { $from, $to } = selection;
+      const {
+        $from,
+        $to,
+      } = selection;
       const range = getMarkRange($from, linkType);
       if (!range) return false;
 
@@ -178,9 +184,6 @@ export default defineComponent({
 
     $_getCurrentMenuType(): MenuType {
       if (this.isLinkSelection) return MenuType.LINK;
-      if (this.editor.state.selection instanceof CellSelection) {
-        return MenuType.TABLE;
-      }
       if (
         this.editor.state.selection instanceof TextSelection ||
         this.editor.state.selection instanceof AllSelection

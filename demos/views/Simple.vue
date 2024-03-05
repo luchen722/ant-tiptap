@@ -16,41 +16,41 @@
 import { ref } from 'vue';
 
 import {
-  Text,
-  Document,
-  Paragraph,
-  Heading,
   Blockquote,
-  CodeBlock,
-  BulletList,
-  OrderedList,
-  Image,
-  TaskList,
-  Table,
-  Iframe,
   Bold,
-  Underline,
-  Italic,
-  Strike,
-  Link,
+  BulletList,
+  Code,
+  CodeBlock,
+  CodeView,
   Color,
-  Highlight,
+  Document,
   FontFamily,
   FontSize,
-  Code,
-  HardBreak,
-  HorizontalRule,
-  History,
-  TextAlign,
-  Indent,
-  LineHeight,
   FormatClear,
   Fullscreen,
+  HardBreak,
+  Heading,
+  Highlight,
+  History,
+  HorizontalRule,
+  Iframe,
+  Image,
+  ImportWord,
+  Indent,
+  Italic,
+  LineHeight,
+  Link,
+  OrderedList,
+  Paragraph,
   Print,
   SelectAll,
-  CodeView,
+  Strike,
+  Table,
+  TaskList,
+  Text,
+  TextAlign,
   TextIndent,
-  ImportWord
+  Underline,
 } from 'element-tiptap';
 import zh from '@/i18n/locales/zh';
 import codemirror from 'codemirror';
@@ -71,17 +71,12 @@ const extensions = [
   Strike.configure({ bubble: true }),
   Table.configure({
     resizable: true,
-    lastColumnResizable: false,
-    HTMLAttributes: {
-      style: 'border-collapse: collapse;',
-    }
+    lastColumnResizable: true,
   }),
   Code,
   Color.configure({ bubble: true }),
   Link.configure({ bubble: true }),
-  Image.configure({
-
-  }),
+  Image.configure({}),
   Blockquote,
   TextAlign.configure({ bubble: true }),
   LineHeight.configure({ bubble: true }),
@@ -108,29 +103,31 @@ const extensions = [
   }),
   Fullscreen,
   History,
-  ImportWord
+  ImportWord,
 ];
 
 const content = ref(
-  ''
+  '',
 );
 </script>
 
 <style lang="scss">
-  .el-tiptap-editor__wrapper {
-    padding-bottom: 24px;
+.el-tiptap-editor__wrapper {
+  padding-bottom: 24px;
+}
+
+.preview-mobile {
+  width: 375px;
+  height: 667px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  margin: 12px auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px;
+
+  &::-webkit-scrollbar {
+    display: none;
   }
-  .preview-mobile {
-    width: 375px;
-    height: 667px;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    margin: 12px auto;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 20px;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
+}
 </style>

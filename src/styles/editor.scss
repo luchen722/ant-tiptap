@@ -28,7 +28,7 @@
     }
   }
 
-  >#{$root}__content {
+  > #{$root}__content {
     background-color: $white-color;
     border: 1px solid $lighter-border-color;
     border-top: 0;
@@ -66,7 +66,7 @@
   }
 
   &--with-footer {
-    >#{$root}__content {
+    > #{$root}__content {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
       border-bottom: 0;
@@ -83,7 +83,9 @@
     flex-shrink: 0;
     flex-wrap: wrap;
     padding: 5px;
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 
     &::before {
       bottom: 0;
@@ -101,7 +103,7 @@
     background-color: $white-color;
     border-radius: 8px;
     box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
-      0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+    0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
     display: flex;
     flex-wrap: wrap;
     padding: 5px;
@@ -121,9 +123,8 @@
     font-family: sans-serif;
     line-height: 1.7;
     overflow-x: auto;
-    text-align: left;
 
-    >* {
+    > * {
       box-sizing: border-box;
     }
 
@@ -162,7 +163,7 @@
       padding-top: 5px;
     }
 
-    li>p {
+    li > p {
       margin: 0;
 
       &:first-child::before {
@@ -178,7 +179,7 @@
       }
     }
 
-    ul li>p {
+    ul li > p {
       &:first-child::before {
         content: '\2022';
         text-align: center;
@@ -188,7 +189,7 @@
     ol {
       counter-reset: el-tiptap-counter;
 
-      li>p:first-child::before {
+      li > p:first-child::before {
         counter-increment: el-tiptap-counter;
       }
     }
@@ -420,7 +421,7 @@
           padding-left: 10px;
           width: 100%;
 
-          >p {
+          > p {
             font-size: 16px;
 
             &:last-of-type {
@@ -430,7 +431,7 @@
         }
 
         &[data-done='done'] {
-          >.todo-content>p {
+          > .todo-content > p {
             color: $primary-color;
             text-decoration: line-through;
           }
@@ -444,35 +445,58 @@
     }
 
     .tableWrapper {
-      margin: 1em 0;
-      overflow-x: auto;
+      &__focus {
+        outline: 2px solid #4099ff;
+      }
     }
 
     table {
-      border-collapse: collapse;
-      table-layout: fixed;
-      width: 100%;
       margin: 0;
       overflow: hidden;
+
+      &.table {
+        &_align {
+          &_left {
+            margin-left: 0;
+            margin-right: auto;
+          }
+
+          &_center {
+            margin-left: auto;
+            margin-right: auto;
+          }
+
+          &_right {
+            margin-left: auto;
+            margin-right: 0;
+          }
+        }
+
+        &_border_collapse {
+          border-collapse: collapse;
+        }
+
+        &-view {
+          &__body {
+            &__placeholder {
+              height: 100%;
+              left: 0;
+              position: absolute;
+              top: 0;
+              width: 100%;
+              z-index: -1;
+            }
+          }
+        }
+      }
     }
 
     th,
     td {
-      border: 2px solid $lighter-border-color;
-      box-sizing: border-box;
-      min-width: 1em;
-      padding: 3px 5px;
-      position: relative;
-      vertical-align: top;
 
       &.selectedCell {
         background-color: $extra-light-primary-color;
       }
-    }
-
-    th {
-      font-weight: 500;
-      text-align: left;
     }
 
     .column-resize-handle {

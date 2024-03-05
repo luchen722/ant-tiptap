@@ -18,7 +18,7 @@ export default {
         buttons: {
           paragraph: 'Paragraph',
           heading: 'Heading',
-        }
+        },
       },
       Blockquote: {
         tooltip: 'Block quote',
@@ -81,7 +81,7 @@ export default {
             center: 'Center',
             left: 'Left',
             right: 'Right',
-          }
+          },
         },
         control: {
           insert_by_url: {
@@ -173,6 +173,14 @@ export default {
           merge_cells: 'Merge Cells',
           split_cell: 'Split Cell',
           delete_table: 'Delete Table',
+          table_prop: 'Table Property',
+        },
+        control: {
+          edit_table: {
+            title: 'Table Property',
+            cancel: 'cancel',
+            confirm: 'confirm',
+          },
         },
       },
       Indent: {
@@ -233,7 +241,7 @@ export default {
         loading: 'Importing...',
         success: 'Successfully imported',
         fail: 'Import failed',
-      }
+      },
     },
     characters: 'Characters',
   },

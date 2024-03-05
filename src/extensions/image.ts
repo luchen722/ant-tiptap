@@ -3,12 +3,12 @@ import { VueNodeViewRenderer } from '@tiptap/vue-3';
 import TiptapImage from '@tiptap/extension-image';
 import InsertImageCommandButton from '@/components/MenuCommands/Image/InsertImageCommandButton.vue';
 import ImageView from '@/components/ExtensionViews/ImageView.vue';
-import { ImageDisplay, Align, Display } from '@/utils/image';
+import { Align, Display, ImageDisplay } from '@/utils/image';
 import {
-  DEFAULT_IMAGE_WIDTH,
+  DEFAULT_IMAGE_ALIGNMENT,
   DEFAULT_IMAGE_DISPLAY,
   DEFAULT_IMAGE_URL_REGEX,
-  DEFAULT_IMAGE_ALIGNMENT,
+  DEFAULT_IMAGE_WIDTH,
 } from '@/constants';
 
 const Image = TiptapImage.extend({
@@ -36,7 +36,8 @@ const Image = TiptapImage.extend({
         renderHTML: (attributes) => {
           return {
             width: attributes.width,
-            style: `max-width: ${this.options.maxWidth}`
+            // @ts-ignore
+            style: `max-width: ${this.options.maxWidth}`,
           };
         },
       },
@@ -58,7 +59,10 @@ const Image = TiptapImage.extend({
       display: {
         default: DEFAULT_IMAGE_DISPLAY,
         parseHTML: (element) => {
-          const { cssFloat, display } = element.style;
+          const {
+            cssFloat,
+            display,
+          } = element.style;
           let dp =
             element.getAttribute('data-display') ||
             element.getAttribute('display');
@@ -82,7 +86,8 @@ const Image = TiptapImage.extend({
         renderHTML: (attributes) => {
           return {
             'data-display': attributes.display,
-            style: Display[attributes.display]
+            // @ts-ignore
+            style: Display[attributes.display],
           };
         },
       },
@@ -96,7 +101,8 @@ const Image = TiptapImage.extend({
         renderHTML: (attributes) => {
           return {
             'data-align': attributes.align,
-            style: attributes.display === 'block' ? Align[attributes.align] : ''
+            // @ts-ignore
+            style: attributes.display === 'block' ? Align[attributes.align] : '',
           };
         },
       },

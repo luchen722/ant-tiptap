@@ -18,7 +18,7 @@ export default {
         buttons: {
           paragraph: '正文',
           heading: '标题',
-        }
+        },
       },
       Blockquote: {
         tooltip: '引用',
@@ -81,7 +81,7 @@ export default {
             center: '居中',
             left: '左对齐',
             right: '右对齐',
-          }
+          },
         },
         control: {
           insert_by_url: {
@@ -173,6 +173,14 @@ export default {
           merge_cells: '合并单元格',
           split_cell: '拆分单元格',
           delete_table: '删除表格',
+          table_prop: '表格属性',
+        },
+        control: {
+          edit_table: {
+            title: '表格属性',
+            cancel: '取消',
+            confirm: '更新',
+          },
         },
       },
       Indent: {
@@ -233,7 +241,7 @@ export default {
         loading: '导入中...',
         success: '导入成功',
         fail: '导入失败',
-      }
+      },
     },
     characters: '字数',
   },

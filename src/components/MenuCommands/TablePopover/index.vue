@@ -21,8 +21,8 @@
           @click="editor.commands.addColumnBefore"
         >
           <span>{{
-            t('editor.extensions.Table.buttons.add_column_before')
-          }}</span>
+              t('editor.extensions.Table.buttons.add_column_before')
+            }}</span>
         </div>
 
         <div
@@ -120,11 +120,7 @@
 import { defineComponent, inject, ref } from 'vue';
 import { Editor } from '@tiptap/vue-3';
 import { Popover } from 'ant-design-vue';
-import {
-  isTableActive,
-  enableMergeCells,
-  enableSplitCell,
-} from '@/utils/table';
+import { enableMergeCells, enableSplitCell, isTableActive } from '@/utils/table';
 import CommandButton from '../CommandButton.vue';
 import CreateTablePopover from './CreateTablePopover.vue';
 
@@ -155,7 +151,13 @@ export default defineComponent({
       open.value = false;
     };
 
-    return { t, enableTooltip, isCodeViewMode, open, hidePopover };
+    return {
+      t,
+      enableTooltip,
+      isCodeViewMode,
+      open,
+      hidePopover,
+    };
   },
 
   computed: {
@@ -173,7 +175,10 @@ export default defineComponent({
   },
 
   methods: {
-    createTable({ row, col }: { row: number; col: number }): void {
+    createTable({
+      row,
+      col,
+    }: { row: number; col: number }): void {
       this.editor.commands.insertTable({
         rows: row,
         cols: col,

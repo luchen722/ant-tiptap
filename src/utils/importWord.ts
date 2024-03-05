@@ -1,8 +1,9 @@
-import { renderAsync } from "docx-preview";
-import type { Editor } from "@tiptap/vue-3";
+import { renderAsync } from 'docx-preview';
+import type { Editor } from '@tiptap/vue-3';
 import { message } from 'ant-design-vue';
-import { Trans } from "@/i18n";
-import { useModel } from "@/hooks";
+import { Trans } from '@/i18n';
+import { useModel } from '@/hooks';
+
 let locale: any = {};
 let i18nHandler: Function;
 let t: (path?: string) => string = () => '';
@@ -20,15 +21,17 @@ export function handleImportWordChange2(editor: Editor) {
   input.accept = '.docx';
   input.click();
   input.onchange = async(e) => {
+    // @ts-ignore
     const files = [...(e.target?.files || [])];
     const file = files[0];
     const tempDOM = document.createElement('div');
-    let loading = () => { };
+    let loading = () => {
+    };
     try {
       // 等待word解析成dom
       // eslint-disable-next-line no-void
       await renderAsync(file, tempDOM, void 0, {
-        breakPages: false
+        breakPages: false,
       });
       const imgs = tempDOM.querySelectorAll('img');
       if (imgs.length > 0) {
@@ -46,6 +49,8 @@ export function handleImportWordChange2(editor: Editor) {
 
       loading = message.loading(t('editor.extensions.ImportWord.loading'), 0);
       editor.commands.setContent(tempDOM.querySelector('article')?.innerHTML || '');
+      // 插入空行用于视图更新
+      editor.commands.insertContent('<p></p>');
       message.success(t('editor.extensions.ImportWord.success'));
     } catch (error) {
       message.error(t('editor.extensions.ImportWord.fail'));

@@ -13,7 +13,7 @@
   >
     <menu-bubble :editor="editor" :class="editorBubbleMenuClass" />
 
-      <menu-bar :editor="editor" :class="editorMenubarClass" />
+    <menu-bar :editor="editor" :class="editorMenubarClass" />
 
     <div
       v-if="isCodeViewMode"
@@ -46,31 +46,21 @@
       ]"
     >
       <span class="el-tiptap-editor__characters">
-        {{ t('editor.characters') }}: {{ characters }}{{ charCountMax ? '/' + charCountMax : ''}}
+        {{ t('editor.characters') }}: {{ characters }}{{ charCountMax ? '/' + charCountMax : '' }}
       </span>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  nextTick,
-  provide,
-  ref,
-  toRaw,
-  unref,
-  watch,
-  watchEffect,
-} from 'vue';
+import { computed, defineComponent, nextTick, provide, ref, toRaw, unref, watch, watchEffect } from 'vue';
 import { Editor, Extensions } from '@tiptap/core';
 import { AnyExtension, EditorContent, useEditor } from '@tiptap/vue-3';
 import TiptapPlaceholder from '@tiptap/extension-placeholder';
 import CharacterCount from '@tiptap/extension-character-count';
 import Gapcursor from '@tiptap/extension-gapcursor';
 import { Trans } from '@/i18n';
-import { useCodeView, useCharacterCount, useEditorStyle, useModel } from '@/hooks';
+import { useCharacterCount, useCodeView, useEditorStyle, useModel } from '@/hooks';
 
 import MenuBar from './MenuBar/index.vue';
 import MenuBubble from './MenuBubble/index.vue';
@@ -189,7 +179,7 @@ export default defineComponent({
         useModel.emit('locale', locale);
       },
       immediate: true,
-    }
+    },
   },
   setup(props, { emit }) {
     const extensions = props.extensions
@@ -207,7 +197,7 @@ export default defineComponent({
             limit: props.charCountMax,
           })
           : null,
-        Gapcursor
+        Gapcursor,
       ])
       .filter(Boolean);
 
@@ -221,10 +211,15 @@ export default defineComponent({
       emit('update:content', output);
 
       emit('onUpdate', output, editor);
-
-      const { from, to } = editor.state.selection;
+      const {
+        from,
+        to,
+      } = editor.state.selection;
       nextTick(() => {
-        editor.chain().focus().setTextSelection({ from, to }).run();
+        editor.chain().focus().setTextSelection({
+          from,
+          to,
+        }).run();
       });
     };
 
@@ -252,8 +247,8 @@ export default defineComponent({
       editorProps: {
         handlePaste(view, event) {
           _handlePaste(editor.value, event);
-        }
-      }
+        },
+      },
     });
     // 修复初始赋值不生效的问题
     watch(() => props.content, () => {
@@ -287,7 +282,10 @@ export default defineComponent({
 
     provide('enableTooltip', props.tooltip);
 
-    const { isCodeViewMode, cmTextAreaRef } = useCodeView(editor);
+    const {
+      isCodeViewMode,
+      cmTextAreaRef,
+    } = useCodeView(editor);
 
     provide('isCodeViewMode', isCodeViewMode);
 
