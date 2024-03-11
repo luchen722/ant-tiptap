@@ -180,6 +180,17 @@ export default {
             title: 'Table Property',
             cancel: 'cancel',
             confirm: 'confirm',
+            form: {
+              colwidth: 'Column Width',
+              rowheight: 'Row Height',
+              border: 'border',
+              tableAlign: {
+                title: 'Table Align',
+                left: 'Left',
+                center: 'Center',
+                right: 'Right',
+              },
+            },
           },
         },
       },

@@ -19,6 +19,7 @@
           </div>
         </template>
       </link-bubble-menu>
+      <table-bubble-menu :editor="editor" v-if="activeMenu === 'table'" />
       <template v-else-if="activeMenu === 'default'">
         <component
           v-for="(spec, i) in generateCommandButtonComponentSpecs()"
@@ -49,17 +50,21 @@ import { AllSelection, Selection, TextSelection } from '@tiptap/pm/state';
 import VIcon from '../Icon/Icon.vue';
 import LinkBubbleMenu from './LinkBubbleMenu.vue';
 import { getMarkRange } from '@/utils/link';
+import { TableControllerPluginKey } from '@/plugins/table';
+import TableBubbleMenu from '@/components/MenuBubble/TableBubbleMenu.vue';
 
 const enum MenuType {
   NONE = 'none',
   DEFAULT = 'default',
-  LINK = 'link'
+  LINK = 'link',
+  TABLE = 'table'
 }
 
 export default defineComponent({
   name: 'MenuBubble',
 
   components: {
+    TableBubbleMenu,
     BubbleMenu,
     LinkBubbleMenu,
     VIcon,
@@ -183,6 +188,8 @@ export default defineComponent({
     },
 
     $_getCurrentMenuType(): MenuType {
+      const { state } = this.editor;
+      const { focused: tableFocused } = TableControllerPluginKey.getState(state);
       if (this.isLinkSelection) return MenuType.LINK;
       if (
         this.editor.state.selection instanceof TextSelection ||
@@ -190,6 +197,7 @@ export default defineComponent({
       ) {
         return MenuType.DEFAULT;
       }
+      if (tableFocused === 1) return MenuType.TABLE;
       return MenuType.NONE;
     },
   },

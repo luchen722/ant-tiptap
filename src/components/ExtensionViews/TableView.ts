@@ -88,6 +88,12 @@ export class TableView implements NodeView {
       return false;
     }
     this.node = node;
+    const align = node.attrs.tableAlign;
+    const tableClassList = [...this.table.classList];
+    const tableAlignList = ['table_align_left', 'table_align_center', 'table_align_right'];
+    const excludeTableAlign = tableClassList.filter(className => !tableAlignList.includes(className));
+    excludeTableAlign.push(`table_align_${align}`);
+    this.table.className = excludeTableAlign.join(' ');
     updateColumns(node, this.colgroup, this.table, this.cellMinWidth);
 
     return true;

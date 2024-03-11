@@ -73,11 +73,6 @@ const TableCell = TiptapTableCell.extend({
       },
     };
   },
-  addProseMirrorPlugins() {
-    return [
-      // new Plugin(),
-    ];
-  },
 });
 
 export default TableCell;

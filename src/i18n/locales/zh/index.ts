@@ -180,6 +180,17 @@ export default {
             title: '表格属性',
             cancel: '取消',
             confirm: '更新',
+            form: {
+              colwidth: '列宽',
+              rowheight: '行高',
+              border: '边框样式',
+              tableAlign: {
+                title: '表格对齐方式',
+                left: '左对齐',
+                center: '居中对齐',
+                right: '右对齐',
+              },
+            },
           },
         },
       },

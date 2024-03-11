@@ -7,9 +7,11 @@ import TableCell from './table-cell';
 import TablePopover from '@/components/MenuCommands/TablePopover/index.vue';
 import { createColGroup, tableAlign } from '@/utils/table';
 import { TableView } from '@/components/ExtensionViews/TableView';
+import { TableController } from '@/plugins/table';
 
 const Table = TiptapTable.extend({
   content: 'tableRow+',
+  selectable: true,
   // @ts-ignore
   addOptions() {
     return {
@@ -98,7 +100,10 @@ const Table = TiptapTable.extend({
     //   ['tbody', 0],
     // ];
   },
-
+  addProseMirrorPlugins() {
+    // @ts-ignore
+    return [...this.parent?.(), TableController(this.editor)];
+  },
   addExtensions() {
     return [TableRow, TableHeader, TableCell];
   },
